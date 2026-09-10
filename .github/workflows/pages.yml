@@ -70,10 +70,12 @@ jobs:
 
           p.write_text(s, encoding='utf-8')
           PY
+          python .site-scripts/relax_page.py dist/index.html dist/assets/qinghai-gansu-route-poster-hd-v3.svg
           test -s dist/index.html
           test -s dist/assets/qinghai-gansu-route-poster-hd-v3.svg
           grep -q '<svg' dist/assets/qinghai-gansu-route-poster-hd-v3.svg
           grep -q '青甘大环线自驾路书' dist/assets/qinghai-gansu-route-poster-hd-v3.svg
+          grep -q '从容自驾 · 安全优先' dist/assets/qinghai-gansu-route-poster-hd-v3.svg
           grep -q 'assets/qinghai-gansu-route-poster-hd-v3.svg' dist/index.html
           ! grep -q 'qinghai-gansu-route-poster-hd-v2.webp' dist/index.html
           grep -q '路线海报版总览' dist/index.html
@@ -81,8 +83,16 @@ jobs:
           grep -q 'id="rental" type="number" value="2700"' dist/index.html
           grep -q 'id="hotel" type="number" value="1300"' dist/index.html
           grep -q 'id="ticket" type="number" value="800"' dist/index.html
-          grep -q "快速预算估算器" dist/index.html
-          grep -q "8天 7夜 · 逐日执行版" dist/index.html
+          grep -q "预算参考估算器" dist/index.html
+          grep -q "8天 7夜 · 逐日轻松参考" dist/index.html
+          grep -q "07:45" dist/index.html
+          ! grep -q "06:30–07:00" dist/index.html
+          ! grep -q "06:00–06:30" dist/index.html
+          ! grep -q "07:00–07:30" dist/index.html
+          ! grep -q "快餐化" dist/index.html
+          ! grep -q "第一场硬仗" dist/index.html
+          ! grep -q "极限挑战" dist/index.html
+          ! grep -q "赶火车" dist/index.html
           grep -q "资料来源 · 可点击复核" dist/index.html
       - name: Setup Pages
         uses: actions/configure-pages@v5
