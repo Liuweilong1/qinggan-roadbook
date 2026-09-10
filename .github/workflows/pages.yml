@@ -25,18 +25,20 @@ jobs:
         uses: actions/checkout@v6
       - name: Rebuild full roadbook
         run: |
-          mkdir -p dist
+          mkdir -p dist/assets
           cat .site-parts/part-01.txt \
               .site-parts/part-02.txt \
               .site-parts/part-03.txt \
               .site-parts/part-04.txt \
               .site-parts/part-05.txt > dist/index.html
+          cp assets/qinghai-gansu-route-poster.webp dist/assets/qinghai-gansu-route-poster.webp
           python - <<'PY'
           from pathlib import Path
           import re
 
           p = Path('dist/index.html')
           s = p.read_text(encoding='utf-8')
+
           defaults = {
               'fuel': '7.3',
               'rental': '2700',
@@ -48,9 +50,20 @@ jobs:
               s, count = re.subn(pattern, rf'\g<1>{value}\2', s, count=1)
               if count != 1:
                   raise SystemExit(f'Failed to update budget field: {field_id}')
+
+          poster = '''  <div class="panel" style="margin:0 0 18px;overflow:hidden;">\n    <h3 style="margin:0 0 6px;font-size:20px;">路线海报版总览</h3>\n    <p class="section-lead" style="margin-bottom:14px;">先用海报快速看全程路线与主要节点，再结合下方交互地图查看位置。手机和微信浏览时可直接上下滑动查看。</p>\n    <img src="assets/qinghai-gansu-route-poster.webp" alt="青甘大环线 9.25—10.2 路线海报总览" loading="eager" decoding="async" style="display:block;width:100%;height:auto;border-radius:18px;border:1px solid var(--line);background:#eef2df;">\n  </div>\n'''
+          marker = '  <div id="map"></div>\n'
+          if 'assets/qinghai-gansu-route-poster.webp' not in s:
+              if marker not in s:
+                  raise SystemExit('Map marker not found')
+              s = s.replace(marker, poster + marker, 1)
+
           p.write_text(s, encoding='utf-8')
           PY
           test -s dist/index.html
+          test -s dist/assets/qinghai-gansu-route-poster.webp
+          grep -q 'assets/qinghai-gansu-route-poster.webp' dist/index.html
+          grep -q '路线海报版总览' dist/index.html
           grep -q 'id="fuel" type="number" value="7.3"' dist/index.html
           grep -q 'id="rental" type="number" value="2700"' dist/index.html
           grep -q 'id="hotel" type="number" value="1300"' dist/index.html
