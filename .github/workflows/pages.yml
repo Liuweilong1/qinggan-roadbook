@@ -31,11 +31,7 @@ jobs:
               .site-parts/part-03.txt \
               .site-parts/part-04.txt \
               .site-parts/part-05.txt > dist/index.html
-          cat .site-assets/route-poster.part01 \
-              .site-assets/route-poster.part02 \
-              .site-assets/route-poster.part03 \
-              .site-assets/route-poster.part04 \
-              .site-assets/route-poster.part05 > dist/assets/qinghai-gansu-route-poster-hd-v2.webp
+          cp assets/qinghai-gansu-route-poster-hd-v3.svg dist/assets/qinghai-gansu-route-poster-hd-v3.svg
           python - <<'PY'
           from pathlib import Path
           import re
@@ -55,20 +51,18 @@ jobs:
               if count != 1:
                   raise SystemExit(f'Failed to update budget field: {field_id}')
 
-          poster = '''  <div class="panel" style="margin:0 0 18px;overflow:hidden;">\n    <h3 style="margin:0 0 6px;font-size:20px;">路线海报版总览</h3>\n    <p class="section-lead" style="margin-bottom:14px;">先用海报快速看全程路线与主要节点，再结合下方交互地图查看位置。点击图片可查看高清大图。</p>\n    <a href="assets/qinghai-gansu-route-poster-hd-v2.webp" target="_blank" rel="noreferrer" aria-label="点击查看路线海报高清大图">\n      <img src="assets/qinghai-gansu-route-poster-hd-v2.webp" alt="青甘大环线 9.25—10.2 高清路线海报总览" loading="eager" decoding="async" style="display:block;width:100%;height:auto;border-radius:18px;border:1px solid var(--line);background:#eef2df;">\n    </a>\n  </div>\n'''
+          poster = '''  <div class="panel" style="margin:0 0 18px;overflow:hidden;">\n    <h3 style="margin:0 0 6px;font-size:20px;">路线海报版总览</h3>\n    <p class="section-lead" style="margin-bottom:14px;">超清矢量版，文字放大后依然清晰。点击图片可在新页面查看大图，再结合下方交互地图查看具体位置。</p>\n    <a href="assets/qinghai-gansu-route-poster-hd-v3.svg" target="_blank" rel="noreferrer" aria-label="点击查看路线海报超清矢量大图" style="display:block;cursor:zoom-in;">\n      <img src="assets/qinghai-gansu-route-poster-hd-v3.svg" alt="青甘大环线 9.25—10.2 超清矢量路线海报总览" loading="eager" decoding="async" style="display:block;width:100%;height:auto;border-radius:18px;border:1px solid var(--line);background:#eef2df;">\n    </a>\n  </div>\n'''
           marker = '  <div id="map"></div>\n'
-          old_refs = [
-              'assets/qinghai-gansu-route-poster.webp',
-              'assets/qinghai-gansu-route-poster-hd-v2.webp'
-          ]
           if '路线海报版总览' in s:
-              s = re.sub(
+              s, count = re.subn(
                   r'  <div class="panel" style="margin:0 0 18px;overflow:hidden;">\n    <h3 style="margin:0 0 6px;font-size:20px;">路线海报版总览</h3>.*?  </div>\n',
                   poster,
                   s,
                   count=1,
                   flags=re.S,
               )
+              if count != 1:
+                  raise SystemExit('Failed to replace route poster panel')
           else:
               if marker not in s:
                   raise SystemExit('Map marker not found')
@@ -77,10 +71,11 @@ jobs:
           p.write_text(s, encoding='utf-8')
           PY
           test -s dist/index.html
-          test -s dist/assets/qinghai-gansu-route-poster-hd-v2.webp
-          test "$(wc -c < dist/assets/qinghai-gansu-route-poster-hd-v2.webp)" -gt 30000
-          grep -q 'assets/qinghai-gansu-route-poster-hd-v2.webp' dist/index.html
-          ! grep -q 'assets/qinghai-gansu-route-poster.webp' dist/index.html
+          test -s dist/assets/qinghai-gansu-route-poster-hd-v3.svg
+          grep -q '<svg' dist/assets/qinghai-gansu-route-poster-hd-v3.svg
+          grep -q '青甘大环线自驾路书' dist/assets/qinghai-gansu-route-poster-hd-v3.svg
+          grep -q 'assets/qinghai-gansu-route-poster-hd-v3.svg' dist/index.html
+          ! grep -q 'qinghai-gansu-route-poster-hd-v2.webp' dist/index.html
           grep -q '路线海报版总览' dist/index.html
           grep -q 'id="fuel" type="number" value="7.3"' dist/index.html
           grep -q 'id="rental" type="number" value="2700"' dist/index.html
