@@ -104,9 +104,10 @@ jobs:
           grep -q "沿途加油 · 卫生间 · 休息点" dist/index.html
           grep -q "肃南县城作为主要加油节点" dist/index.html
           grep -q "cdn.bootcdn.net/ajax/libs/leaflet/1.9.4/leaflet.js" dist/index.html
-          grep -q "is.autonavi.com/appmaptile" dist/index.html
+          grep -q "map.gtimg.com/tile" dist/index.html
+          grep -q "wprd0" dist/index.html
           grep -q "wgs84ToGcj02" dist/index.html
-          grep -q "底图已切换为高德地图" dist/index.html
+          grep -q "优先使用腾讯地图国内底图" dist/index.html
           ! grep -q "tile.openstreetmap.org" dist/index.html
           ! grep -q "unpkg.com/leaflet" dist/index.html
           python - <<'PY'
