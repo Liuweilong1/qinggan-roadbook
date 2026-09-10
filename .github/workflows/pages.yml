@@ -31,7 +31,30 @@ jobs:
               .site-parts/part-03.txt \
               .site-parts/part-04.txt \
               .site-parts/part-05.txt > dist/index.html
+          python - <<'PY'
+          from pathlib import Path
+          import re
+
+          p = Path('dist/index.html')
+          s = p.read_text(encoding='utf-8')
+          defaults = {
+              'fuel': '7.3',
+              'rental': '2700',
+              'hotel': '1300',
+              'ticket': '800',
+          }
+          for field_id, value in defaults.items():
+              pattern = rf'(<input id="{field_id}"[^>]*\bvalue=")[^"]*(")'
+              s, count = re.subn(pattern, rf'\g<1>{value}\2', s, count=1)
+              if count != 1:
+                  raise SystemExit(f'Failed to update budget field: {field_id}')
+          p.write_text(s, encoding='utf-8')
+          PY
           test -s dist/index.html
+          grep -q 'id="fuel" type="number" value="7.3"' dist/index.html
+          grep -q 'id="rental" type="number" value="2700"' dist/index.html
+          grep -q 'id="hotel" type="number" value="1300"' dist/index.html
+          grep -q 'id="ticket" type="number" value="800"' dist/index.html
           grep -q "快速预算估算器" dist/index.html
           grep -q "8天 7夜 · 逐日执行版" dist/index.html
           grep -q "资料来源 · 可点击复核" dist/index.html
