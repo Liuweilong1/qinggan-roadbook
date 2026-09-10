@@ -1,0 +1,130 @@
+ <div class="timeline"><div class="step"><div class="time">06:30</div><div class="what">建议门源出发。</div></div><div class="step"><div class="time">09:00左右</div><div class="what">进入西宁，预留还车、加油/充电、行李搬运时间。</div></div><div class="step"><div class="time">发车前90分钟</div><div class="what">建议已经到达西宁火车站候车区域。</div></div></div>
+      <div class="pro-tip"><b>当天策略：</b>如果你们的火车是12点左右，这一天不要安排任何景点。国庆第二天城市入口、还车点和车站都可能排队。若10/1绕行非常堵，Plan B是直接住西宁而不是门源。</div>
+    </article>
+    
+  </div>
+</div>
+</section>
+
+<section id="tickets">
+<div class="wrap">
+  <h2>门票 / 预约优先级</h2>
+  <p class="section-lead">先锁“不可替代且有硬时段”的票，再订普通景区。你们现在距离出发只剩约两周，莫高窟是第一优先级。</p>
+  <div class="table-wrap">
+  <table>
+    <thead><tr><th>项目</th><th>2026 已核实信息</th><th>建议</th><th>你们日期</th></tr></thead>
+    <tbody>
+      <tr><td><b>莫高窟</b></td><td>旺季 08:00–18:00；常规参观每日6000张；常规全价238元；数字电影+8窟。</td><td><b>立即检查9/29余票</b>。只走官方“莫高窟参观预约网”渠道；不要信小红书/闲鱼“内部票”。</td><td>9/29</td></tr>
+      <tr><td><b>鸣沙山月牙泉</b></td><td>2026年6月起公开运营时间 05:00–20:30。</td><td>下午16:30后入园，主目标是日落；骆驼排长队时可舍弃。</td><td>9/29</td></tr>
+      <tr><td><b>嘉峪关关城</b></td><td>旺季 08:00–18:30，18:00停止售票；旺季全价110元。</td><td>9/30只游关城主景，控制约2小时，不再加第一墩/悬壁长城。</td><td>9/30</td></tr>
+      <tr><td><b>七彩丹霞</b></td><td>2026年门票70元；观光车38元。9/1–10/31公开公告为06:30–18:00。</td><td><b>从10/1挪到9/30下午</b>，并住七彩镇。</td><td>9/30</td></tr>
+      <tr><td><b>茶卡盐湖</b></td><td>旺季门票公开价60元；运营时段约08:00–19:40（平台显示略有差异，出发前以官方为准）。</td><td>中秋假期当日，尽量14点前入园；时间紧不要往返都坐小火车排队。</td><td>9/26</td></tr>
+      <tr><td><b>察尔汗 / 翡翠湖</b></td><td>当前公开信息均正常开放；察尔汗08:00–20:00左右，翡翠湖08:00–19:30左右。</td><td>双湖同日可行，但必须早出发；阴天/堵车时只保察尔汗。</td><td>9/27</td></tr>
+      <tr><td><b>黑独山</b></td><td>实行游览区、缓冲区、禁游区分区管理。</td><td>只走开放线路，不越野、不攀爬禁游区。无人机也要看当天规定。</td><td>9/28</td></tr>
+    </tbody>
+  </table>
+  </div>
+</div>
+</section>
+
+
+<section id="stay">
+<div class="wrap">
+  <h2>住宿区域怎么选</h2>
+  <p class="section-lead">这里不绑具体酒店品牌，因为国庆前后价格和余房变化很快。按“第二天少绕路 + 停车方便 + 吃饭方便”选区域，比只看网红酒店更重要。</p>
+  <div class="table-wrap">
+  <table>
+    <thead><tr><th>日期</th><th>建议住宿区域</th><th>选房重点</th><th>大致海拔</th></tr></thead>
+    <tbody>
+      <tr><td>9/25</td><td>西宁市区，靠近你们取车点/快速路</td><td>停车方便、早餐能早开；不用追求景区型酒店。</td><td>约2260m</td></tr>
+      <tr><td>9/26</td><td>德令哈市区</td><td>尽量选有院内停车的连锁/新酒店；第二天一早方便出城。</td><td>约2980m</td></tr>
+      <tr><td>9/27</td><td>大柴旦镇中心</td><td>国庆前房价会涨，优先可免费取消；停车比装修重要。</td><td>约3170m</td></tr>
+      <tr><td>9/28–9/29</td><td>敦煌市区连住2晚</td><td>沙洲夜市周边适合吃饭；若更在意停车和安静，可选市区外围，不必住鸣沙山民宿。</td><td>约1140m</td></tr>
+      <tr><td>9/30</td><td><b>七彩镇 / 七彩丹霞景区周边</b></td><td>这是我建议相对原计划唯一主动换住宿地的一晚，目的是10/1少走回头路。</td><td>约1700m</td></tr>
+      <tr><td>10/1</td><td>门源浩门镇；若路况差则直接西宁</td><td>必须可晚到、可取消。10/1不要为了已经付掉的房费强行夜驾。</td><td>约2850m</td></tr>
+    </tbody>
+  </table>
+  </div>
+</div>
+</section>
+
+<section id="xhs">
+<div class="wrap">
+  <h2>小红书 / 社区经验怎么用</h2>
+  <p class="section-lead">我对“青甘大环线 / 茶卡 / 察尔汗 / 翡翠湖 / 黑独山 / 敦煌 / 七彩丹霞 / 祁连9号公路”等关键词做了多轮近期公开检索。需要说明：小红书笔记正文并不会稳定暴露给公开网页搜索，因此不能负责任地声称“完整抓取了几百篇小红书笔记”。本页把可公开验证的2026近期游记、旅行社区内容、平台点评与官方公告做交叉筛选；同时给出一组小红书App内可直接复制的检索词，方便你们临行前看最新现场图和排队情况。</p>
+  <div class="keyword-grid"><button class="keyword" onclick="copyText("青甘大环线 2026 国庆 自驾")">青甘大环线 2026 国庆 自驾 <span>复制</span></button>
+<button class="keyword" onclick="copyText("G227 封路 祁连 9号公路")">G227 封路 祁连 9号公路 <span>复制</span></button>
+<button class="keyword" onclick="copyText("张掖 肃南 二尕公路 祁连")">张掖 肃南 二尕公路 祁连 <span>复制</span></button>
+<button class="keyword" onclick="copyText("茶卡盐湖 9月底 穿搭 拍照")">茶卡盐湖 9月底 穿搭 拍照 <span>复制</span></button>
+<button class="keyword" onclick="copyText("察尔汗盐湖 翡翠湖 一天")">察尔汗盐湖 翡翠湖 一天 <span>复制</span></button>
+<button class="keyword" onclick="copyText("黑独山 2026 开放区")">黑独山 2026 开放区 <span>复制</span></button>
+<button class="keyword" onclick="copyText("莫高窟 A类票 抢票 2026")">莫高窟 A类票 抢票 2026 <span>复制</span></button>
+<button class="keyword" onclick="copyText("鸣沙山 月牙泉 日落 骆驼")">鸣沙山 月牙泉 日落 骆驼 <span>复制</span></button>
+<button class="keyword" onclick="copyText("七彩丹霞 9月 观景台")">七彩丹霞 9月 观景台 <span>复制</span></button></div>
+  <div class="grid-3" style="margin-top:18px">
+    <div class="callout"><h4>盐湖类共同经验</h4><p>真正影响出片的是晴天、风小和光线，不是“多刷一个盐湖”。茶卡偏经典镜面，察尔汗偏大尺度青绿，翡翠湖更适合傍晚斜光；行程延误时不要硬凑三湖全满。</p></div>
+    <div class="callout"><h4>祁连绕行共同经验</h4><p>G227封路后，2026社区自驾讨论大量转向“肃南—G213—祁连—S302—峨堡”线路；景观很强，但山路、牛羊、落石风险和节假日拥堵也一起上升。</p></div>
+    <div class="callout"><h4>敦煌共同经验</h4><p>莫高窟上午 + 午休 + 鸣沙山傍晚是最稳组合。把敦煌博物馆、演出、夜市全塞同一天，第二天长途驾驶很容易崩。</p></div>
+  </div>
+
+  <div class="panel" style="margin-top:18px">
+    <h3>近期社区内容里，真正值得信的 8 条</h3>
+    <ol>
+      <li><b>茶卡“镜面”先看风，不只看晴雨。</b> 无风或微风比单纯晴天更重要；正午反光重，你们下午到反而不算坏安排。</li>
+      <li><b>三座盐湖不要当作同一种景。</b> 茶卡看经典天空之镜，察尔汗看辽阔青绿盐湖，翡翠湖更偏颜色和航拍构图；天气差时宁可删一个。</li>
+      <li><b>黑独山现在不是“随便开进去的无人区”。</b> 只走官方开放游览区和缓冲区，禁游区禁止穿越、露营和旅拍。</li>
+      <li><b>敦煌最好“上午人文、下午休息、傍晚沙漠”。</b> 莫高窟和鸣沙山放同一天成立，但中午必须留休息，否则第二天长途驾驶很痛苦。</li>
+      <li><b>莫高窟绝不碰所谓小红书/闲鱼内部票。</b> 敦煌研究院2026年已专门发声明：没有授权第三方代理售票。</li>
+      <li><b>七彩丹霞更吃斜射光。</b> 你们9/30若能16点左右到，光线通常优于10/1早上匆匆打卡；也正好替10/1减负。</li>
+      <li><b>“祁连9号公路”本身就应该当景点。</b> 肃南—祁连的G213约152km，雪山、草原、峡谷很多，不需要再强塞大量付费景点。</li>
+      <li><b>9月底一定按冬夏两套衣服思路收拾。</b> 青海湖/祁连早晚可能接近0℃体感，敦煌白天又可能明显偏暖，洋葱式叠穿最省心。</li>
+    </ol>
+  </div>
+
+</div>
+</section>
+
+<section id="packing">
+<div class="wrap">
+  <h2>自驾与穿衣清单</h2>
+  <p class="section-lead">9月底西北最难受的不是“冷”，而是同一天里从高原冷风、盐湖暴晒切到敦煌干热，再回到祁连山区低温。建议分层穿衣。</p>
+  <div class="check-grid" id="checks">
+    <label class="check"><input type="checkbox" data-key="c0"><span>身份证 / 驾驶证 / 租车订单 / 火车票截图</span></label><label class="check"><input type="checkbox" data-key="c1"><span>薄羽绒或抓绒 + 防风外壳；祁连/盐湖早晚必须有保暖层</span></label><label class="check"><input type="checkbox" data-key="c2"><span>SPF50+防晒、墨镜、帽子、润唇膏、保湿</span></label><label class="check"><input type="checkbox" data-key="c3"><span>每人至少1–1.5L随车饮水 + 能量棒/饼干</span></label><label class="check"><input type="checkbox" data-key="c4"><span>车载充电器、充电宝、手机支架、离线地图</span></label><label class="check"><input type="checkbox" data-key="c5"><span>纸巾、湿巾、垃圾袋、一次性雨衣</span></label><label class="check"><input type="checkbox" data-key="c6"><span>轮胎气压检查、备胎/补胎工具、三角牌</span></label><label class="check"><input type="checkbox" data-key="c7"><span>大柴旦/冷湖长路段出发前加满油</span></label><label class="check"><input type="checkbox" data-key="c8"><span>10/1 G213山路避免夜间驾驶；关注雨雪、落石与临时管制</span></label><label class="check"><input type="checkbox" data-key="c9"><span>盐湖鞋套是否需要现场再决定；不要为了拍照进入封闭盐壳/禁区</span></label><label class="check"><input type="checkbox" data-key="c10"><span>摄影设备防沙袋/镜头布；鸣沙山避免频繁换镜头</span></label><label class="check"><input type="checkbox" data-key="c11"><span>莫高窟订单与身份证一致；提前30分钟到数字展示中心</span></label>
+  </div>
+</div>
+</section>
+
+<section id="budget">
+<div class="wrap">
+  <h2>快速预算估算器</h2>
+  <p class="section-lead">不是报价，只是让同行人快速知道“这趟大概多少钱”。默认按4人、约3000km、普通SUV/中型车估算，可直接改。</p>
+  <div class="budget">
+    <div class="panel calc-grid">
+      <label>人数<input id="people" type="number" value="4" min="1"></label>
+      <label>总里程 km<input id="km" type="number" value="3000"></label>
+      <label>油耗 L/100km<input id="cons" type="number" value="8" step="0.1"></label>
+      <label>油价 元/L<input id="fuel" type="number" value="7.8" step="0.1"></label>
+      <label>租车总价 元<input id="rental" type="number" value="3000"></label>
+      <label>过路费总计 元<input id="toll" type="number" value="700"></label>
+      <label>7晚住宿总计 元/间<input id="hotel" type="number" value="3500"></label>
+      <label>每人门票+景交 元<input id="ticket" type="number" value="1100"></label>
+      <label>每人每天餐饮 元<input id="food" type="number" value="130"></label>
+      <label>房间数<input id="rooms" type="number" value="2" min="1"></label>
+    </div>
+    <div class="panel">
+      <div class="muted">估算总费用</div>
+      <div class="total" id="total">—</div>
+      <div id="per" style="font-weight:800;font-size:20px"></div>
+      <p class="muted">公式：燃油 + 租车 + 过路费 + 住宿 + 每人门票/景交 + 8天餐饮。未含大交通、购物、旅拍、演出和节假日酒店临时涨价。</p>
+    </div>
+  </div>
+</div>
+</section>
+
+<section>
+<div class="wrap">
+  <h2>两套应急 Plan B</h2>
+  <div class="compare">
+    <div class="panel">
+      <h3>Plan B1 · 10/1 祁连绕行严重堵车</h3>
+      <p>不要坚持“必须住门源”。到峨堡后若时间已晚、天气变差
