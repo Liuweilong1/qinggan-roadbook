@@ -17,7 +17,7 @@ s = s.replace(
 )
 
 # Prefer Tencent tiles in mainland/WeChat. If no tiles arrive, automatically
-# fall back to Gaode's current wprd endpoint.
+# fall back to Gaode's current official-style wprd endpoint.
 old_tile = """  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
     maxZoom:18, attribution:'© OpenStreetMap contributors'
   }).addTo(map);"""
@@ -30,7 +30,7 @@ new_tile = """  let baseLayer;
     if(usingFallback) return;
     usingFallback=true;
     if(baseLayer) map.removeLayer(baseLayer);
-    baseLayer=L.tileLayer('https://wprd0{s}.is.autonavi.com/appmaptile?x={x}&y={y}&z={z}&lang=zh_cn&size=1&scl=1&style=7',{
+    baseLayer=L.tileLayer('https://wprd0{s}.is.autonavi.com/appmaptile?x={x}&y={y}&z={z}&lang=zh_cn&size=1&scl=1&style=8&ltype=11',{
       subdomains:['1','2','3','4'], maxZoom:18, attribution:'© 高德地图（备用底图）'
     }).addTo(map);
     baseLayer.on('tileload',()=>{ fallbackLoads++; });
@@ -45,8 +45,8 @@ new_tile = """  let baseLayer;
     },5000);
   }
 
-  baseLayer=L.tileLayer('https://rt{s}.map.gtimg.com/tile?z={z}&x={x}&y={y}&type=vector&style=0',{
-    subdomains:['0','1','2'], tms:true, maxZoom:18, attribution:'© 腾讯地图'
+  baseLayer=L.tileLayer('https://rt{s}.map.gtimg.com/realtimerender?z={z}&x={x}&y={y}&type=vector&style=0',{
+    subdomains:['0','1','2'], tms:true, minZoom:3, maxZoom:18, attribution:'© 腾讯地图'
   }).addTo(map);
   let tileErrors=0;
   baseLayer.on('tileload',()=>{ primaryLoads++; });
