@@ -74,6 +74,7 @@ jobs:
           python .site-scripts/add_services.py dist/index.html
           python .site-scripts/add_vehicle.py dist/index.html
           python .site-scripts/reorder_services.py dist/index.html
+          python .site-scripts/domestic_map.py dist/index.html
           test -s dist/index.html
           test -s dist/assets/qinghai-gansu-route-poster-hd-v3.svg
           grep -q '<svg' dist/assets/qinghai-gansu-route-poster-hd-v3.svg
@@ -102,6 +103,12 @@ jobs:
           grep -q 'id="services"' dist/index.html
           grep -q "沿途加油 · 卫生间 · 休息点" dist/index.html
           grep -q "肃南县城作为主要加油节点" dist/index.html
+          grep -q "cdn.bootcdn.net/ajax/libs/leaflet/1.9.4/leaflet.js" dist/index.html
+          grep -q "is.autonavi.com/appmaptile" dist/index.html
+          grep -q "wgs84ToGcj02" dist/index.html
+          grep -q "底图已切换为高德地图" dist/index.html
+          ! grep -q "tile.openstreetmap.org" dist/index.html
+          ! grep -q "unpkg.com/leaflet" dist/index.html
           python - <<'PY'
           from pathlib import Path
           s = Path('dist/index.html').read_text(encoding='utf-8')
