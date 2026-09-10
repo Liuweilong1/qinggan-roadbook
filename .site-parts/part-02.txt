@@ -1,0 +1,176 @@
+: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .actions .btn { width: 100%; text-align: center; padding: 11px 12px; }
+  .actions .btn:last-child:nth-child(odd) { grid-column: 1 / -1; }
+  .sticky { top: 0; }
+  .nav { gap: 6px; padding: 8px 0; scrollbar-width: none; }
+  .nav::-webkit-scrollbar { display: none; }
+  .nav a { font-size: 13px; padding: 7px 9px; background: rgba(255,255,255,.58); }
+  section { padding: 26px 0; }
+  h2 { font-size: clamp(26px, 8vw, 36px); }
+  .section-lead { font-size: 14px; }
+  .metrics { gap: 8px; }
+  .metrics div { padding: 10px; }
+  .metrics b { font-size: 14px; }
+  .step { grid-template-columns: 84px 1fr; gap: 10px; }
+  .time { font-size: 13px; }
+  .what { font-size: 14px; }
+  .pro-tip { font-size: 14px; padding: 12px 13px; }
+  #map { height: 360px; border-radius: 18px; }
+  .table-wrap { margin-inline: -2px; border-radius: 14px; -webkit-overflow-scrolling: touch; }
+  table { min-width: 720px; }
+  th, td { padding: 11px 10px; font-size: 12.5px; }
+  .keyword-grid { gap: 7px; }
+  .keyword { font-size: 12px; padding: 8px 10px; }
+  .check { font-size: 14px; }
+  .budget { gap: 12px; }
+  .calc-grid { grid-template-columns: 1fr 1fr; }
+  input[type=number] { font-size: 16px; }
+  .total { font-size: 36px; }
+  .sources { padding-left: 20px; }
+  .sources li { font-size: 13px; overflow-wrap: anywhere; }
+  .footer { padding-bottom: calc(38px + env(safe-area-inset-bottom)); }
+}
+@media (max-width: 420px) {
+  .actions { grid-template-columns: 1fr; }
+  .actions .btn:last-child:nth-child(odd) { grid-column: auto; }
+  .metrics { grid-template-columns: 1fr 1fr; }
+  .calc-grid { grid-template-columns: 1fr; }
+  #map { height: 320px; }
+}
+
+</style>
+</head>
+<body>
+<header class="hero">
+  <div class="wrap">
+    <div class="kicker">QINGHAI × GANSU ROADBOOK · RESEARCH SNAPSHOT 2026-09-11</div>
+    <h1>青甘大环线<br>9.25 → 10.2 自驾路书</h1>
+    <p class="lead">按你们现有线路做了“能落地”的重排：保留青海湖、三大盐湖、黑独山、敦煌、嘉峪关、张掖与祁连山，但针对 <b>中秋/国庆客流</b> 和 <b>G227 全封闭施工</b> 改了最关键的一天。</p>
+    <div class="hero-grid">
+      <div class="hero-card">
+        <strong>≈ 2,900–3,100 km</strong>
+        <small>全程预计自驾里程 · 7个驾驶日 · 2段超长途 · 1段施工绕行</small>
+        <div class="actions">
+          <button class="btn" onclick="copyPlan()">复制行程摘要</button>
+          <button class="btn secondary" onclick="sharePlan()">分享路书</button>
+          <button class="btn secondary" onclick="window.print()">打印 / 保存 PDF</button>
+          <a class="btn secondary" href="#days" style="text-decoration:none">查看逐日安排</a>
+        </div>
+      </div>
+      <div class="key-alert">
+        <b>先看这一条：你们原定 10/1 路线不能按经典走法执行。</b>
+        <p>G227 扁都口—峨堡及相关祁连段在你们出行期间全封闭。建议 9/30 把七彩丹霞提前游掉并住七彩镇；10/1 整天走官方小型车绕行：张掖/七彩镇 → 肃南 → G213 → 祁连 → S302 → 峨堡 → G0611 → 门源。</p>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="sticky">
+  <nav class="wrap nav">
+    <a href="#changes">关键调整</a><a href="#road">实时路况</a><a href="#mapsec">路线地图</a><a href="#days">逐日路书</a>
+    <a href="#tickets">门票预约</a><a href="#stay">住宿建议</a><a href="#xhs">社区经验</a><a href="#packing">装备</a>
+    <a href="#budget">预算</a><a href="#sources">资料源</a>
+  </nav>
+</div>
+
+<main>
+<section id="changes">
+<div class="wrap">
+  <h2>先把 4 个大坑填掉</h2>
+  <p class="section-lead">这四件事比“去哪家餐馆”重要得多，决定你们能不能按时跑完整条线。</p>
+  <div class="grid-3">
+    <div class="callout danger"><h4>① 中秋 + 国庆双节夹击</h4><p>2026年中秋放假 9/25–9/27，国庆 10/1–10/7。你们第一、二个驾驶日就在中秋假期，10/1又是国庆首日；9/28–9/30虽是工作日，但存在请3天年假拼成长假的客流。</p></div>
+    <div class="callout danger"><h4>② G227 正在全封闭施工</h4><p>截至 2026-09-10 的青海省官方路况，峨堡—景阳岭、景阳岭—门源等多段封闭，扁都口—峨堡主线也在封闭施工。经典“张掖→扁都口→祁连草原→门源”不能硬走。</p></div>
+    <div class="callout good"><h4>③ 大柴旦景区已恢复</h4><p>2026年6月大柴旦发生6.3级地震后曾临时关停；海西州公告显示翡翠湖等核心景区已于6月27日起恢复开放。出行前仍需复核最新地质/天气通告。</p></div>
+  </div>
+  <div class="compare" style="margin-top:16px">
+    <div class="panel">
+      <h3>你们原计划的最后两天</h3>
+      <div class="route-strip">
+        <span>10/1 张掖</span><span>七彩丹霞</span><span class="blocked">扁都口</span><span class="blocked">经典祁连草原段</span><span>门源</span>
+      </div>
+      <p class="muted">问题：丹霞至少2–3小时，再叠加施工绕行与国庆车流，极容易天黑后还在山路上。</p>
+    </div>
+    <div class="panel">
+      <h3>建议采用的版本</h3>
+      <div class="route-strip">
+        <span class="new">9/30 下午七彩丹霞</span><span class="new">住七彩镇</span><span class="new">10/1 肃南</span><span class="new">G213 9号公路</span><span class="new">祁连</span><span class="new">峨堡</span><span class="new">G0611</span><span class="new">门源</span>
+      </div>
+      <p class="muted">把10/1的景点任务清空，整天只做“风景公路 + 赶到门源”，更符合真实路况。</p>
+    </div>
+  </div>
+</div>
+</section>
+
+
+<section id="road">
+<div class="wrap">
+  <h2>截至 9/11 的道路实况</h2>
+  <p class="section-lead">这部分来自青海省路网运行监测与应急处置中心最新公开路况。真正出发时仍要以当天交管公告 + 高德/百度实时导航为准。</p>
+  <div class="table-wrap">
+  <table>
+    <thead><tr><th>与你们相关的路段</th><th>当前状态</th><th>对行程的影响</th></tr></thead>
+    <tbody>
+      <tr><td><b>G227 峨堡—景阳岭等段</b></td><td>全封闭，施工跨越你们整个出行日期，部分工程持续至2027年。</td><td><b>经典张掖→扁都口→峨堡直穿路线不要按老攻略走。</b>小车官方绕行：张掖/肃南→G213→祁连→S302→峨堡，再接G0611。</td></tr>
+      <tr><td><b>G213 祁连段</b></td><td>边麻沟—地盘子村桥涵隧施工，至10/1半幅交替通行；大通河大桥至11/15全幅施工、便道通行。</td><td>10/1正好踩施工尾期 + 国庆首日，建议把当天当作“纯风景公路日”，不安排卓尔山等耗时景点。</td></tr>
+      <tr><td><b>G0611 扁门段</b></td><td>目前高速可通行，但景阳岭隧道、岗什卡附近等存在车道施工。</td><td>从峨堡向门源方向进入高速后仍要预留堵车时间；雨雾天严格控速。</td></tr>
+      <tr><td><b>G3011 大柴旦—察尔汗段</b></td><td>锡铁山附近存在车道施工，仍可通行；部分施工持续到10月底。</td><td>9/27德令哈→察尔汗→大柴旦建议额外留30–60分钟机动，不要把翡翠湖最后入园时间卡得太死。</td></tr>
+      <tr><td><b>西宁→青海湖 / 茶卡方向</b></td><td>G6/G109部分路段存在施工与落石隐患点；茶卡周边国道亦有养护。</td><td>9/26中秋假期第二天，优先听实时导航走高速，避免为了“小路机位”临时钻未开放道路。</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <div class="pro-tip"><b>最重要的导航原则：</b>不要提前几周把 10/1 的固定导航路线存死。当天 06:30 出发前重新导航一次，并再查青海省交通运输厅“路况信息”。山路若出现降雪、落石、临时管制，直接启用“10/1回西宁、不住门源”的保底方案。</div>
+</div>
+</section>
+
+<section id="mapsec">
+<div class="wrap">
+  <h2>全程路线地图</h2>
+  <p class="section-lead">地图用于理解环线结构与停靠点，不替代高德/百度的实时导航。10/1请严格以当天导航与交管公告为准。</p>
+  <div id="map"></div>
+  <div id="mapFallback" class="map-fallback">地图组件未加载。路线顺序：西宁 → 青海湖 → 茶卡 → 德令哈 → 察尔汗 → 大柴旦 → 黑独山 → 敦煌 → 瓜州 → 嘉峪关 → 七彩丹霞 → 肃南 → 祁连 → 峨堡 → 门源 → 西宁。</div>
+  <p class="map-note">注：黑独山、丝路遗产城等点位为行程导览近似点位，具体入口与停车点以景区/导航为准。</p>
+</div>
+</section>
+
+<section id="days">
+<div class="wrap">
+  <h2>8天 7夜 · 逐日执行版</h2>
+  <p class="section-lead">时间按“能完成且不把每一天都开成极限挑战”的思路安排。所有驾驶时长都要再叠加加油、厕所、节假日堵车与停车入园时间。</p>
+  <div class="day-list">
+    
+    <article class="day-card" id="day1">
+      <div class="day-head">
+        <div>
+          <div class="eyebrow">9/25 Fri</div>
+          <h3>抵达西宁｜不要把第一天下午塞满</h3>
+          <div class="tags"><span class="pill">适应海拔</span><span class="pill">取车</span><span class="pill">补给</span></div>
+        </div>
+        <div class="risk ok">强度/风险：低</div>
+      </div>
+      <div class="metrics">
+        <div><b>市内</b><span>预计里程</span></div>
+        <div><b>—</b><span>纯驾驶</span></div>
+        <div><b>西宁</b><span>住宿</span></div>
+        <div><b>日落约19:07</b><span>光线参考</span></div>
+      </div>
+      <div class="timeline"><div class="step"><div class="time">下午</div><div class="what">抵达西宁、取车，确认车辆轮胎/备胎/玻璃水/ETC或高速支付方式。</div></div><div class="step"><div class="time">傍晚</div><div class="what">酒店入住后只做轻量活动；采购水、零食、纸巾、防晒、暖衣、车充。</div></div><div class="step"><div class="time">晚上</div><div class="what">把莫高窟、鸣沙山、茶卡、丹霞等票务再次核验；下载青海/甘肃离线地图。</div></div></div>
+      <div class="pro-tip"><b>当天策略：</b>你们9/25正好撞上中秋假期第一天，西宁取车与市区交通都可能比普通周五更忙。不要安排塔尔寺等需要往返的景点，给第二天早起留体力。</div>
+    </article>
+    
+    <article class="day-card" id="day2">
+      <div class="day-head">
+        <div>
+          <div class="eyebrow">9/26 Sat</div>
+          <h3>西宁 → 青海湖 → 茶卡盐湖 → 德令哈</h3>
+          <div class="tags"><span class="pill">中秋假期</span><span class="pill">长距离</span><span class="pill">盐湖</span></div>
+        </div>
+        <div class="risk high">强度/风险：高</div>
+      </div>
+      <div class="metrics">
+        <div><b>约500–550 km</b><span>预计里程</span></div>
+        <div><b>约7–8 h</b><span>纯驾驶</span></div>
+        <div><b>德令哈</b><span>住宿</span></div>
+        <div><b>茶卡日落约19:16</b><span>光线参考</span></div>
+      </div>
+      <div class="timeline"><div class="step"><div
