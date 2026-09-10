@@ -1,0 +1,120 @@
+或山路拥堵，直接按导航走G0611回西宁，住西宁。10/2就彻底没有赶火车压力。</p>
+    </div>
+    <div class="panel">
+      <h3>Plan B2 · 9/30赶不上丹霞16点前</h3>
+      <p>不要为了景区关门前赶路超速。住七彩镇，10/1最早06:30入丹霞，控制2小时内出园，然后立刻走肃南绕行；同时做好“10/1直接回西宁、不住门源”的心理预案。</p>
+    </div>
+  </div>
+</div>
+</section>
+
+<section id="sources">
+<div class="wrap">
+  <h2>资料来源 · 可点击复核</h2>
+  <p class="section-lead">优先官方政府/景区公告，其次使用2026年公开旅行平台信息与社区实测。开放时间、施工和票务都可能临时变化，出发前48–72小时应再次复核。</p>
+  <div class="panel">
+    <ol class="sources">
+      <li><a href="https://www.gov.cn/zhengce/zhengceku/202511/content_7047091.htm" target="_blank" rel="noreferrer">国务院办公厅：2026年部分节假日安排</a></li>
+      <li><a href="https://jtyst.qinghai.gov.cn/jtyst/2026-09/10/article_2026091008262162220.html" target="_blank" rel="noreferrer">青海省交通运输厅：2026-09-10 国省干线路况（G213/G227）</a></li>
+      <li><a href="https://jtyst.qinghai.gov.cn/jtyst/2026-09/10/article_2026091008203470985.html" target="_blank" rel="noreferrer">青海省交通运输厅：2026-09-10 高速公路路况（G6/G0611/G3011）</a></li>
+      <li><a href="https://www.dha.ac.cn/info/1020/7498.htm" target="_blank" rel="noreferrer">敦煌研究院：2026年莫高窟旅游开放公告</a></li>
+      <li><a href="https://www.dha.ac.cn/skxl/mgk.htm" target="_blank" rel="noreferrer">敦煌研究院：莫高窟开放时间、票价与票务服务</a></li>
+      <li><a href="https://dunhuangcaves.org/info/1021/7785.htm" target="_blank" rel="noreferrer">敦煌研究院：规范莫高窟门票销售秩序声明</a></li>
+      <li><a href="https://gansu.gansudaily.com.cn/system/2026/05/27/031374575.shtml" target="_blank" rel="noreferrer">鸣沙山月牙泉官方公众号信息：2026年6月起5:00–20:30</a></li>
+      <li><a href="https://zwfw.gansu.gov.cn/jiayuguan/tsfw/lyzq/lyzx/lyzc/art/2026/art_0076b2ad870d44ad90090478d19b45b9.html" target="_blank" rel="noreferrer">嘉峪关市文旅局：2026旺季开放时间与票价</a></li>
+      <li><a href="https://www.zhangye.gov.cn/fgw/dzdt/tzgg/202507/t20250711_1426087.html" target="_blank" rel="noreferrer">张掖市发改委：2026年七彩丹霞门票调整为70元</a></li>
+      <li><a href="https://h5.ifeng.com/c/vivo/v002w1MM4uTBkq7uj4UBZMwDs7YLRkk8OqsPeg--vZFWeQ9U__" target="_blank" rel="noreferrer">七彩丹霞：2026年9/1–10/31开闭园时间06:30–18:00</a></li>
+      <li><a href="https://www.chakasl.com/index.html" target="_blank" rel="noreferrer">茶卡盐湖景区官网：9月开园07:50、停止检票19:20</a></li>
+      <li><a href="https://www.geermu.gov.cn/details?id=ff80808191c740bd019202d3eaed012b" target="_blank" rel="noreferrer">格尔木市政府：察尔汗盐湖开放与游览提示</a></li>
+      <li><a href="https://www.chinanews.com/sh/2026/06-28/10648703.shtml" target="_blank" rel="noreferrer">中新网：大柴旦翡翠湖等景区6月27日起恢复开放</a></li>
+      <li><a href="https://thirdpage.thepaper.cn/h5/jrtt/31119162" target="_blank" rel="noreferrer">冷湖镇/茫崖文旅：黑独山游览区、缓冲区、禁游区管理公告</a></li>
+      <li><a href="https://www.gonghe.gov.cn/xwdt/tzgg/content_1013648235" target="_blank" rel="noreferrer">青海湖景区保护利用管理局：不要进入私设违规旅游通道</a></li>
+      <li><a href="https://www.zhangyeren.cn/8437.html" target="_blank" rel="noreferrer">祁连9号公路资料：G213肃南—祁连风景廊道约152km</a></li>
+    </ol>
+  </div>
+</div>
+</section>
+</main>
+
+<footer class="footer">
+<div class="wrap">
+  <b>青甘大环线路书 · 2026.09.25–10.02</b><br>
+  研究快照更新于 2026-09-11。这是单文件可分享版：把本HTML直接发给同行人即可用浏览器打开；手机浏览器支持时可点顶部“分享路书”。联网时可加载地图瓦片，离线时文字、清单与预算器仍可使用。
+</div>
+</footer>
+
+<div class="toast" id="toast">已复制</div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+const points = [{"name": "西宁", "lat": 36.6171, "lon": 101.7782, "date": "9/25-9/26", "note": "抵达、取车、补给"}, {"name": "青海湖二郎剑", "lat": 36.59, "lon": 100.49, "date": "9/26", "note": "优先正规开放区域"}, {"name": "茶卡盐湖", "lat": 36.726, "lon": 99.079, "date": "9/26", "note": "下午游览"}, {"name": "德令哈", "lat": 37.3694, "lon": 97.36, "date": "9/26", "note": "住宿"}, {"name": "察尔汗盐湖", "lat": 36.9, "lon": 95.3, "date": "9/27", "note": "主盐湖景点"}, {"name": "大柴旦翡翠湖", "lat": 37.84, "lon": 95.16, "date": "9/27", "note": "傍晚斜光"}, {"name": "大柴旦", "lat": 37.85, "lon": 95.36, "date": "9/27", "note": "住宿"}, {"name": "黑独山/冷湖片区", "lat": 38.73, "lon": 93.36, "date": "9/28", "note": "仅走开放游览区"}, {"name": "敦煌丝路遗产城", "lat": 40.16, "lon": 94.76, "date": "9/28", "note": "视到达时间选去"}, {"name": "敦煌", "lat": 40.1421, "lon": 94.6619, "date": "9/28-9/30", "note": "连住2晚"}, {"name": "莫高窟数字展示中心", "lat": 40.08, "lon": 94.76, "date": "9/29", "note": "按预约时段提前30分钟"}, {"name": "鸣沙山月牙泉", "lat": 40.088, "lon": 94.679, "date": "9/29", "note": "傍晚游览"}, {"name": "瓜州·大地之子", "lat": 40.55, "lon": 95.88, "date": "9/30", "note": "短停拍照"}, {"name": "嘉峪关关城", "lat": 39.773, "lon": 98.288, "date": "9/30", "note": "控制在约2小时"}, {"name": "张掖七彩丹霞", "lat": 38.965, "lon": 100.06, "date": "9/30", "note": "建议移到9/30下午"}, {"name": "肃南", "lat": 38.8369, "lon": 99.6156, "date": "10/1", "note": "G227封闭后的官方绕行节点"}, {"name": "祁连县", "lat": 38.1771, "lon": 100.253, "date": "10/1", "note": "G213 9号公路核心段"}, {"name": "峨堡镇", "lat": 37.96, "lon": 100.92, "date": "10/1", "note": "转G0611"}, {"name": "门源", "lat": 37.3766, "lon": 101.618, "date": "10/1-10/2", "note": "住宿/返程缓冲"}, {"name": "西宁", "lat": 36.6171, "lon": 101.7782, "date": "10/2", "note": "还车、乘火车"}];
+
+function showToast(msg) {
+  const t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),1400);
+}
+async function copyText(s) {
+  try { await navigator.clipboard.writeText(s); showToast('已复制：'+s); }
+  catch(e) { showToast('请长按复制'); }
+}
+
+async function sharePlan() {
+  const data = {
+    title: '青甘大环线 2026.9.25-10.2 自驾路书',
+    text: '青甘大环线自驾：西宁→青海湖→茶卡→德令哈→察尔汗→大柴旦→黑独山→敦煌→嘉峪关→七彩丹霞→祁连→门源→西宁。关键提醒：G227封闭，10/1需按官方路线绕行。',
+  };
+  if (navigator.share) {
+    try { await navigator.share(data); return; } catch(e) {}
+  }
+  await copyPlan();
+}
+
+function copyPlan() {
+  const s=`青甘大环线 2026.9.25-10.2
+9/25 西宁
+9/26 西宁-青海湖-茶卡-德令哈
+9/27 德令哈-察尔汗-翡翠湖-大柴旦
+9/28 大柴旦-黑独山-敦煌
+9/29 莫高窟-鸣沙山月牙泉
+9/30 敦煌-大地之子-嘉峪关-七彩丹霞-住七彩镇
+10/1 七彩镇-肃南-G213-祁连-S302-峨堡-G0611-门源
+10/2 门源-西宁
+关键：G227封闭，10/1必须绕行；建议把七彩丹霞提前到9/30。`;
+  copyText(s);
+}
+try {
+  if (!window.L) throw new Error('Leaflet unavailable');
+  const map=L.map('map',{scrollWheelZoom:false}).setView([38.1,98.5],5);
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
+    maxZoom:18, attribution:'© OpenStreetMap contributors'
+  }).addTo(map);
+  const latlngs=[];
+  points.forEach((p,i)=>{
+    latlngs.push([p.lat,p.lon]);
+    L.marker([p.lat,p.lon]).addTo(map).bindPopup(`<b>${i+1}. ${p.name}</b><br>${p.date} · ${p.note}`);
+  });
+  L.polyline(latlngs,{weight:4,opacity:.72}).addTo(map);
+  map.fitBounds(latlngs,{padding:[30,30]});
+} catch(e) {
+  document.getElementById('map').style.display='none';
+  document.getElementById('mapFallback').style.display='block';
+}
+
+const ids=['people','km','cons','fuel','rental','toll','hotel','ticket','food','rooms'];
+function calc(){
+  const v=Object.fromEntries(ids.map(id=>[id,Number(document.getElementById(id).value||0)]));
+  const fuelCost=v.km*v.cons/100*v.fuel;
+  const total=fuelCost+v.rental+v.toll+v.hotel*v.rooms+v.ticket*v.people+v.food*8*v.people;
+  const per=v.people?total/v.people:0;
+  document.getElementById('total').textContent='¥'+Math.round(total).toLocaleString();
+  document.getElementById('per').textContent='约 ¥'+Math.round(per).toLocaleString()+' / 人';
+}
+ids.forEach(id=>document.getElementById(id).addEventListener('input',calc)); calc();
+
+document.querySelectorAll('#checks input[type=checkbox]').forEach(cb=>{
+  cb.checked=localStorage.getItem('qinggan_'+cb.dataset.key)==='1';
+  cb.addEventListener('change',()=>localStorage.setItem('qinggan_'+cb.dataset.key,cb.checked?'1':'0'));
+});
+</script>
+</body>
+</html>
