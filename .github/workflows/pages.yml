@@ -72,6 +72,7 @@ jobs:
           PY
           python .site-scripts/relax_page.py dist/index.html dist/assets/qinghai-gansu-route-poster-hd-v3.svg
           python .site-scripts/add_services.py dist/index.html
+          python .site-scripts/add_vehicle.py dist/index.html
           test -s dist/index.html
           test -s dist/assets/qinghai-gansu-route-poster-hd-v3.svg
           grep -q '<svg' dist/assets/qinghai-gansu-route-poster-hd-v3.svg
@@ -84,7 +85,10 @@ jobs:
           grep -q 'id="rental" type="number" value="2700"' dist/index.html
           grep -q 'id="hotel" type="number" value="1300"' dist/index.html
           grep -q 'id="ticket" type="number" value="800"' dist/index.html
+          grep -q 'id="cons" type="number" value="9"' dist/index.html
           grep -q "预算参考估算器" dist/index.html
+          grep -q "神州租车 BJ30" dist/index.html
+          grep -q "舒适补油间隔约 400–450km" dist/index.html
           grep -q "8天 7夜 · 逐日轻松参考" dist/index.html
           grep -q "07:45" dist/index.html
           ! grep -q "06:30–07:00" dist/index.html
