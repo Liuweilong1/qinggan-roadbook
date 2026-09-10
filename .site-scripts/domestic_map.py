@@ -17,12 +17,27 @@ s = s.replace(
 )
 
 # Replace OpenStreetMap raster tiles with Gaode/AMap raster tiles.
+# Use the current wprd endpoint rather than the older webrd style=7 endpoint,
+# which can return blank/white tiles in some browsers and zoom levels.
 old_tile = """  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
     maxZoom:18, attribution:'© OpenStreetMap contributors'
   }).addTo(map);"""
-new_tile = """  L.tileLayer('https://webrd0{s}.is.autonavi.com/appmaptile?style=7&x={x}&y={y}&z={z}',{
-    subdomains:['1','2','3','4'], maxZoom:18, attribution:'© 高德地图'
-  }).addTo(map);"""
+new_tile = """  let gaodeFallbackUsed=false;
+  let gaodeTileErrors=0;
+  let gaodeLayer=L.tileLayer('https://wprd0{s}.is.autonavi.com/appmaptile?x={x}&y={y}&z={z}&lang=zh_cn&size=1&scl=1&style=7',{
+    subdomains:['1','2','3','4'], maxZoom:18, attribution:'© 高德地图',
+    crossOrigin:false, keepBuffer:3
+  }).addTo(map);
+  gaodeLayer.on('tileerror',()=>{
+    gaodeTileErrors += 1;
+    if (!gaodeFallbackUsed && gaodeTileErrors >= 3) {
+      gaodeFallbackUsed=true;
+      map.removeLayer(gaodeLayer);
+      gaodeLayer=L.tileLayer('https://webrd0{s}.is.autonavi.com/appmaptile?lang=zh_cn&size=1&scale=1&style=8&x={x}&y={y}&z={z}',{
+        subdomains:['1','2','3','4'], maxZoom:18, attribution:'© 高德地图'
+      }).addTo(map);
+    }
+  });"""
 if old_tile not in s:
     raise SystemExit('OpenStreetMap tile block not found')
 s = s.replace(old_tile, new_tile, 1)
