@@ -1,0 +1,115 @@
+ class="time">06:30–07:00</div><div class="what">建议离开西宁，越晚越容易在青海湖/茶卡叠加客流。</div></div><div class="step"><div class="time">09:00–11:00</div><div class="what">青海湖：优先二郎剑正规开放区域或明确开放观景点。若你们说的“二郎剑小路”属于私人/违规通道，不建议进入。</div></div><div class="step"><div class="time">11:00–13:30</div><div class="what">前往茶卡，途中午餐尽量快餐化，不做长时间停留。</div></div><div class="step"><div class="time">13:30–17:00</div><div class="what">茶卡盐湖。时间紧时，小火车建议“进去坐、出来步行/电瓶车”或直接精简到核心湖区。</div></div><div class="step"><div class="time">17:00–20:00</div><div class="what">茶卡 → 德令哈；天黑前尽量完成大部分路程。</div></div></div>
+      <div class="pro-tip"><b>当天策略：</b>这是全程第一场硬仗。中秋假期为9/25–9/27，青海湖和茶卡都属于高客流景点。青海湖官方明确提醒不要翻越围栏、不要进入私设违规旅游通道。</div>
+    </article>
+    
+    <article class="day-card" id="day3">
+      <div class="day-head">
+        <div>
+          <div class="eyebrow">9/27 Sun</div>
+          <h3>德令哈 → 察尔汗盐湖 → 翡翠湖 → 大柴旦</h3>
+          <div class="tags"><span class="pill">中秋假期</span><span class="pill">双盐湖</span><span class="pill">回头线</span></div>
+        </div>
+        <div class="risk high">强度/风险：高</div>
+      </div>
+      <div class="metrics">
+        <div><b>约450–500 km</b><span>预计里程</span></div>
+        <div><b>约5.5–6.5 h</b><span>纯驾驶</span></div>
+        <div><b>大柴旦</b><span>住宿</span></div>
+        <div><b>大柴旦日落约19:29</b><span>光线参考</span></div>
+      </div>
+      <div class="timeline"><div class="step"><div class="time">07:30</div><div class="what">德令哈出发，油箱加满。</div></div><div class="step"><div class="time">11:00–14:00</div><div class="what">察尔汗盐湖：建议预留约3小时，含景交与步行。</div></div><div class="step"><div class="time">14:00–17:00</div><div class="what">前往大柴旦翡翠湖。</div></div><div class="step"><div class="time">17:00–19:10</div><div class="what">翡翠湖：把最柔和的光线留给这里；不要为打卡每一个湖池耗时。</div></div><div class="step"><div class="time">19:20后</div><div class="what">大柴旦镇入住、晚餐。</div></div></div>
+      <div class="pro-tip"><b>当天策略：</b>察尔汗会让经典环线产生明显“向南绕行再折返”，但视觉差异足够大。当前G3011大柴旦—察尔汗方向有车道施工，建议多留30–60分钟缓冲。若当天阴天/大风/堵车，只保一个盐湖时优先察尔汗；翡翠湖离镇很近，可压缩。</div>
+    </article>
+    
+    <article class="day-card" id="day4">
+      <div class="day-head">
+        <div>
+          <div class="eyebrow">9/28 Mon</div>
+          <h3>大柴旦 → 黑独山 → 丝路遗产城 → 敦煌</h3>
+          <div class="tags"><span class="pill">荒漠长途</span><span class="pill">黑独山管控</span><span class="pill">工作日</span></div>
+        </div>
+        <div class="risk high">强度/风险：高</div>
+      </div>
+      <div class="metrics">
+        <div><b>约480–520 km</b><span>预计里程</span></div>
+        <div><b>约8 h</b><span>纯驾驶</span></div>
+        <div><b>敦煌</b><span>住宿</span></div>
+        <div><b>冷湖片区日落约19:35</b><span>光线参考</span></div>
+      </div>
+      <div class="timeline"><div class="step"><div class="time">07:00–07:30</div><div class="what">大柴旦出发，务必加满油、带足饮水与简单食物。</div></div><div class="step"><div class="time">11:00左右</div><div class="what">抵达冷湖/黑独山片区。只走划定游览区和缓冲区，禁游区不要进入，也不要把车开进地貌区。</div></div><div class="step"><div class="time">11:00–13:00</div><div class="what">黑独山拍摄；大风时减少停留。</div></div><div class="step"><div class="time">13:00–17:30</div><div class="what">向敦煌方向行驶，途中按体力补给。</div></div><div class="step"><div class="time">18:00后</div><div class="what">若到达仍有体力，再去丝路遗产城；否则直接入住，把体力留给莫高窟。</div></div></div>
+      <div class="pro-tip"><b>当天策略：</b>黑独山自2025年起实行游览区/缓冲区/禁游区分区管理。2026年6月大柴旦地震后核心景区曾临时关停，已于6月27日起恢复开放；出发前仍建议再查一次海西州最新公告。</div>
+    </article>
+    
+    <article class="day-card" id="day5">
+      <div class="day-head">
+        <div>
+          <div class="eyebrow">9/29 Tue</div>
+          <h3>敦煌｜莫高窟 + 鸣沙山月牙泉</h3>
+          <div class="tags"><span class="pill">刚性预约</span><span class="pill">低海拔休整</span><span class="pill">日落</span></div>
+        </div>
+        <div class="risk mid">强度/风险：中</div>
+      </div>
+      <div class="metrics">
+        <div><b>市内约50–70 km</b><span>预计里程</span></div>
+        <div><b>约1.5 h</b><span>纯驾驶</span></div>
+        <div><b>敦煌</b><span>住宿</span></div>
+        <div><b>敦煌日落约19:28</b><span>光线参考</span></div>
+      </div>
+      <div class="timeline"><div class="step"><div class="time">08:00–13:00</div><div class="what">莫高窟：按预约时间执行。先到“莫高窟数字展示中心”，至少提前30分钟；常规票包含数字电影+8个实体洞窟。</div></div><div class="step"><div class="time">13:00–16:00</div><div class="what">午餐 + 回酒店休息。不要把敦煌博物馆等继续硬塞进下午。</div></div><div class="step"><div class="time">16:30–20:30</div><div class="what">鸣沙山月牙泉：把爬沙山、月牙泉、日落一次完成。若骑骆驼排队过长，优先保留爬沙山与日落。</div></div></div>
+      <div class="pro-tip"><b>当天策略：</b>2026年莫高窟旺季常规参观每日限6000张，全价238元；官方再次声明没有授权第三方代购。若还没买到9/29常规票，现在就应立即检查官方小程序/官网余票。</div>
+    </article>
+    
+    <article class="day-card" id="day6">
+      <div class="day-head">
+        <div>
+          <div class="eyebrow">9/30 Wed</div>
+          <h3>敦煌 → 大地之子 → 嘉峪关 → 七彩丹霞｜关键改线</h3>
+          <div class="tags"><span class="pill">建议改动</span><span class="pill">超长途</span><span class="pill">为10/1腾时间</span></div>
+        </div>
+        <div class="risk high">强度/风险：高</div>
+      </div>
+      <div class="metrics">
+        <div><b>约600 km</b><span>预计里程</span></div>
+        <div><b>约7–8 h</b><span>纯驾驶</span></div>
+        <div><b>七彩镇 / 丹霞景区周边</b><span>住宿</span></div>
+        <div><b>丹霞日落约19:05</b><span>光线参考</span></div>
+      </div>
+      <div class="timeline"><div class="step"><div class="time">06:00–06:30</div><div class="what">敦煌出发。今天不要睡懒觉。</div></div><div class="step"><div class="time">08:00左右</div><div class="what">瓜州“大地之子”短停30–40分钟；不要顺带把瓜州雕塑群全部打满。</div></div><div class="step"><div class="time">11:00–13:15</div><div class="what">嘉峪关关城：旺季8:00–18:30，主景控制在约2小时。</div></div><div class="step"><div class="time">13:15–15:45</div><div class="what">嘉峪关 → 七彩丹霞。午餐尽量提前打包或高速服务区解决。</div></div><div class="step"><div class="time">16:00–18:00</div><div class="what">七彩丹霞：建议把原10/1上午的丹霞提前到今天下午。2026年9/1–10/31公布营业时间为06:30–18:00。</div></div><div class="step"><div class="time">18:00后</div><div class="what">住七彩镇/景区周边，不回张掖市区，第二天直接走肃南方向。</div></div></div>
+      <div class="pro-tip"><b>当天策略：</b>这是整份路书最重要的调整。把七彩丹霞挪到9/30，才能给10/1的G227封路绕行留出完整白天。代价是9/30很累，但比10/1“丹霞+500km山路绕行”安全得多。</div>
+    </article>
+    
+    <article class="day-card" id="day7">
+      <div class="day-head">
+        <div>
+          <div class="eyebrow">10/1 Thu</div>
+          <h3>七彩镇 → 肃南 → G213“9号公路” → 祁连 → 峨堡 → 门源</h3>
+          <div class="tags"><span class="pill">国庆首日</span><span class="pill">G227封闭</span><span class="pill">官方绕行</span></div>
+        </div>
+        <div class="risk extreme">强度/风险：极高</div>
+      </div>
+      <div class="metrics">
+        <div><b>约430–500 km</b><span>预计里程</span></div>
+        <div><b>约7–9 h（节假日可能更久）</b><span>纯驾驶</span></div>
+        <div><b>门源</b><span>住宿</span></div>
+        <div><b>门源日落约18:58</b><span>光线参考</span></div>
+      </div>
+      <div class="timeline"><div class="step"><div class="time">06:30–07:00</div><div class="what">最晚7点出发。国庆第一天，不要按普通工作日导航时长来算。</div></div><div class="step"><div class="time">上午</div><div class="what">七彩镇/张掖西侧 → 肃南 → G213（二尕公路/常被称“祁连9号公路”）→ 祁连县。</div></div><div class="step"><div class="time">中午</div><div class="what">祁连县快速午餐、加油。沿线风景本身就是今天的主要景点，不再额外塞卓尔山。</div></div><div class="step"><div class="time">下午</div><div class="what">祁连县 → S302 → 峨堡镇；再上G0611向门源方向。</div></div><div class="step"><div class="time">18:00–20:00</div><div class="what">预计抵达门源。若堵车严重，优先安全驾驶，不为日落或拍照赶路。</div></div></div>
+      <div class="pro-tip"><b>当天策略：</b>经典“张掖—扁都口—峨堡—祁连山草原—门源”的G227走法在你们出行时不可用：2026/9/1起相关路段全封闭施工。官方给小型车的绕行就是“张掖—肃南—G213—祁连—S302—峨堡—G0611”。这条路景色很好，但山路多、节假日车流会集中。</div>
+    </article>
+    
+    <article class="day-card" id="day8">
+      <div class="day-head">
+        <div>
+          <div class="eyebrow">10/2 Fri</div>
+          <h3>门源 → 西宁｜只做返程</h3>
+          <div class="tags"><span class="pill">赶火车</span><span class="pill">国庆客流</span><span class="pill">留缓冲</span></div>
+        </div>
+        <div class="risk mid">强度/风险：中</div>
+      </div>
+      <div class="metrics">
+        <div><b>约130–160 km</b><span>预计里程</span></div>
+        <div><b>约2–2.5 h + 还车</b><span>纯驾驶</span></div>
+        <div><b>—</b><span>住宿</span></div>
+        <div><b>—</b><span>光线参考</span></div>
+      </div>
+      
