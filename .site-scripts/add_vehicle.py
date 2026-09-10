@@ -10,8 +10,8 @@ if 'id="bj30-plan"' in s:
 
 # Use a deliberately conservative planning figure for the rental-car budget.
 s, count = re.subn(
-    r'(<input id="cons" type="number" value=")[^"]*(" step="0\\.1">)',
-    r'\\g<1>9\\2',
+    r'(<input id="cons"[^>]*\bvalue=")[^"]*(")',
+    r'\g<1>9\2',
     s,
     count=1,
 )
