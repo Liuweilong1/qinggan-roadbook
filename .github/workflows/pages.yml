@@ -23,6 +23,18 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v6
+      - name: Rebuild full roadbook
+        run: |
+          mkdir -p dist
+          cat .site-parts/part-01.txt \
+              .site-parts/part-02.txt \
+              .site-parts/part-03.txt \
+              .site-parts/part-04.txt \
+              .site-parts/part-05.txt > dist/index.html
+          test -s dist/index.html
+          grep -q "快速预算估算器" dist/index.html
+          grep -q "8天 7夜 · 逐日执行版" dist/index.html
+          grep -q "资料来源 · 可点击复核" dist/index.html
       - name: Setup Pages
         uses: actions/configure-pages@v5
         with:
@@ -30,7 +42,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v4
         with:
-          path: .
+          path: dist
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
