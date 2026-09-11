@@ -32,7 +32,7 @@ jobs:
               .site-parts/part-04.txt \
               .site-parts/part-05.txt > dist/index.html
           cp assets/qinghai-gansu-route-poster-hd-v3.svg dist/assets/qinghai-gansu-route-poster-hd-v3.svg
-          base64 -d .site-assets/poster-v7.b64 > dist/assets/qinghai-gansu-route-poster-wechat-v7.jpg
+          cp assets/qinghai-gansu-route-poster-community-v8.svg dist/assets/qinghai-gansu-route-poster-community-v8.svg
           python - <<'PY'
           from pathlib import Path
           import re
@@ -52,7 +52,7 @@ jobs:
               if count != 1:
                   raise SystemExit(f'Failed to update budget field: {field_id}')
 
-          poster = '''  <div class="panel" style="margin:0 0 18px;overflow:hidden;">\n    <h3 style="margin:0 0 6px;font-size:20px;">路线海报版总览</h3>\n    <p class="section-lead" style="margin-bottom:14px;">社区旅行海报风格优化版，已针对微信浏览使用标准 JPEG。点击图片可查看大图，再结合下方交互地图查看具体位置。</p>\n    <a href="assets/qinghai-gansu-route-poster-wechat-v7.jpg" target="_blank" rel="noreferrer" aria-label="点击查看路线海报大图" style="display:block;cursor:zoom-in;">\n      <img src="assets/qinghai-gansu-route-poster-wechat-v7.jpg" alt="青甘大环线 9.25—10.2 路线海报总览" loading="eager" decoding="async" style="display:block;width:100%;height:auto;border-radius:18px;border:1px solid var(--line);background:#eef2df;">\n    </a>\n  </div>\n'''
+          poster = '''  <div class="panel" style="margin:0 0 18px;overflow:hidden;">\n    <h3 style="margin:0 0 6px;font-size:20px;">路线海报版总览</h3>\n    <p class="section-lead" style="margin-bottom:14px;">社区旅行海报风格优化版，使用纯 SVG 矢量图，微信浏览更稳定，放大文字依然清晰。点击图片可查看大图。</p>\n    <a href="assets/qinghai-gansu-route-poster-community-v8.svg" target="_blank" rel="noreferrer" aria-label="点击查看路线海报大图" style="display:block;cursor:zoom-in;">\n      <img src="assets/qinghai-gansu-route-poster-community-v8.svg" alt="青甘大环线 9.25—10.2 路线海报总览" loading="eager" decoding="async" style="display:block;width:100%;height:auto;border-radius:18px;border:1px solid var(--line);background:#eef2df;">\n    </a>\n  </div>\n'''
           marker = '  <div id="map"></div>\n'
           if '路线海报版总览' in s:
               s, count = re.subn(
@@ -77,25 +77,20 @@ jobs:
           python .site-scripts/reorder_services.py dist/index.html
           python .site-scripts/domestic_map.py dist/index.html
           test -s dist/index.html
-          test -s dist/assets/qinghai-gansu-route-poster-wechat-v7.jpg
-          test "$(wc -c < dist/assets/qinghai-gansu-route-poster-wechat-v7.jpg)" -gt 100000
+          test -s dist/assets/qinghai-gansu-route-poster-community-v8.svg
+          grep -q '<svg' dist/assets/qinghai-gansu-route-poster-community-v8.svg
+          grep -q '青甘大环线自驾路书' dist/assets/qinghai-gansu-route-poster-community-v8.svg
+          grep -q '门源' dist/assets/qinghai-gansu-route-poster-community-v8.svg
+          ! grep -q '百里油菜花海' dist/assets/qinghai-gansu-route-poster-community-v8.svg
+          grep -q 'assets/qinghai-gansu-route-poster-community-v8.svg' dist/index.html
+          grep -q '路线海报版总览' dist/index.html
+          grep -q '神州租车 BJ30' dist/index.html
+          grep -q '沿途加油 · 卫生间 · 休息点' dist/index.html
+          grep -q 'wgs84ToGcj02' dist/index.html
+          grep -q '资料来源 · 可点击复核' dist/index.html
           python - <<'PY'
           from pathlib import Path
-          img = Path('dist/assets/qinghai-gansu-route-poster-wechat-v7.jpg').read_bytes()
-          if img[:2] != b'\xff\xd8' or img[-2:] != b'\xff\xd9':
-              raise SystemExit('Poster JPEG integrity check failed')
           s = Path('dist/index.html').read_text(encoding='utf-8')
-          required = [
-              'assets/qinghai-gansu-route-poster-wechat-v7.jpg',
-              '路线海报版总览',
-              '神州租车 BJ30',
-              '沿途加油 · 卫生间 · 休息点',
-              '资料来源 · 可点击复核',
-              'wgs84ToGcj02',
-          ]
-          missing = [x for x in required if x not in s]
-          if missing:
-              raise SystemExit('Missing required content: ' + ', '.join(missing))
           stay = s.find('<section id="stay">')
           services = s.find('<section id="services">')
           xhs = s.find('<section id="xhs">')
