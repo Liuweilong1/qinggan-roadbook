@@ -31,6 +31,7 @@ jobs:
               .site-parts/part-03.txt \
               .site-parts/part-04.txt \
               .site-parts/part-05.txt > dist/index.html
+          cp assets/qinghai-gansu-route-poster-hd-v3.svg dist/assets/qinghai-gansu-route-poster-hd-v3.svg
           cp assets/qinghai-gansu-route-poster-community-v4.webp dist/assets/qinghai-gansu-route-poster-community-v4.webp
           python - <<'PY'
           from pathlib import Path
@@ -78,7 +79,6 @@ jobs:
           test -s dist/index.html
           test -s dist/assets/qinghai-gansu-route-poster-community-v4.webp
           grep -q 'assets/qinghai-gansu-route-poster-community-v4.webp' dist/index.html
-          ! grep -q 'qinghai-gansu-route-poster-hd-v3.svg' dist/index.html
           grep -q '路线海报版总览' dist/index.html
           grep -q 'id="fuel" type="number" value="7.3"' dist/index.html
           grep -q 'id="rental" type="number" value="2700"' dist/index.html
