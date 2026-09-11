@@ -32,58 +32,35 @@ jobs:
               .site-parts/part-04.txt \
               .site-parts/part-05.txt > dist/index.html
           cp assets/qinghai-gansu-route-poster-hd-v3.svg dist/assets/qinghai-gansu-route-poster-hd-v3.svg
+          cat .site-assets/source-v28.part01 \
+              .site-assets/source-v28.part02 \
+              .site-assets/source-v28.part03 \
+              .site-assets/source-v28.part04 \
+              .site-assets/source-v28.part05 \
+              .site-assets/source-v28.part06 \
+              .site-assets/source-v28.part07 \
+              .site-assets/source-v28.part08 \
+              .site-assets/source-v28.part09 \
+              .site-assets/source-v28.part10 \
+              > dist/assets/qinghai-gansu-route-poster-community-v28.jpg
           python - <<'PY'
           from pathlib import Path
+          import hashlib
           import re
 
-          # These are the archived raw binary chunks of the HD route poster.
-          # Concatenate bytes directly; do not pass the image through Base64.
-          part_files = [
-              '.site-assets/route-poster.part01',
-              '.site-assets/route-poster.part02',
-              '.site-assets/route-poster.part03',
-              '.site-assets/route-poster.part04',
-              '.site-assets/route-poster.part05',
-          ]
-          img = b''.join(Path(x).read_bytes() for x in part_files)
-          print(f'Raw poster assembled: size={len(img)} magic={img[:12].hex()} tail={img[-12:].hex()}')
+          asset_rel = 'assets/qinghai-gansu-route-poster-community-v28.jpg'
+          img_path = Path('dist') / asset_rel
+          img = img_path.read_bytes()
+          expected_size = 78059
+          expected_sha256 = 'b77c833cdec66ba6e4578fd6a750215e9d0b381dcec5b57a2526fc2c1c1d3792'
+          actual_sha256 = hashlib.sha256(img).hexdigest()
+          if len(img) != expected_size:
+              raise SystemExit(f'Poster size mismatch: {len(img)} != {expected_size}')
+          if actual_sha256 != expected_sha256:
+              raise SystemExit(f'Poster SHA256 mismatch: {actual_sha256} != {expected_sha256}')
           if not (img.startswith(b'\xff\xd8\xff') and img.endswith(b'\xff\xd9')):
-              raise SystemExit('Archived route poster is not a complete JPEG')
-          if len(img) < 50000:
-              raise SystemExit(f'Archived route poster unexpectedly small: {len(img)} bytes')
-
-          # Parse the JPEG SOF marker so the build proves the browser has a real image.
-          i = 2
-          width = height = None
-          while i + 9 < len(img):
-              if img[i] != 0xFF:
-                  i += 1
-                  continue
-              while i < len(img) and img[i] == 0xFF:
-                  i += 1
-              if i >= len(img):
-                  break
-              marker = img[i]
-              i += 1
-              if marker in (0xD8, 0xD9) or 0xD0 <= marker <= 0xD7:
-                  continue
-              if i + 2 > len(img):
-                  break
-              seglen = int.from_bytes(img[i:i+2], 'big')
-              if marker in (0xC0, 0xC1, 0xC2, 0xC3, 0xC5, 0xC6, 0xC7, 0xC9, 0xCA, 0xCB, 0xCD, 0xCE, 0xCF):
-                  if i + 7 <= len(img):
-                      height = int.from_bytes(img[i+3:i+5], 'big')
-                      width = int.from_bytes(img[i+5:i+7], 'big')
-                  break
-              if seglen < 2:
-                  break
-              i += seglen
-          if not width or not height:
-              raise SystemExit('Could not read JPEG dimensions from archived poster')
-          print(f'Poster JPEG dimensions: {width}x{height}')
-
-          asset_rel = 'assets/qinghai-gansu-route-poster-community-v27.jpg'
-          (Path('dist') / asset_rel).write_bytes(img)
+              raise SystemExit('Poster JPEG header/tail invalid')
+          print(f'Poster verified byte-for-byte: {len(img)} bytes sha256={actual_sha256}')
 
           p = Path('dist/index.html')
           s = p.read_text(encoding='utf-8')
@@ -125,8 +102,8 @@ jobs:
           python .site-scripts/reorder_services.py dist/index.html
           python .site-scripts/domestic_map.py dist/index.html
           test -s dist/index.html
-          test -s dist/assets/qinghai-gansu-route-poster-community-v27.jpg
-          grep -q 'assets/qinghai-gansu-route-poster-community-v27.jpg' dist/index.html
+          test -s dist/assets/qinghai-gansu-route-poster-community-v28.jpg
+          grep -q 'assets/qinghai-gansu-route-poster-community-v28.jpg' dist/index.html
           grep -q '路线海报版总览' dist/index.html
           grep -q '神州租车 BJ30' dist/index.html
           grep -q '沿途加油 · 卫生间 · 休息点' dist/index.html
