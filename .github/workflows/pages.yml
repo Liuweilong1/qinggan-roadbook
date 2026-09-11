@@ -114,6 +114,10 @@ jobs:
           python .site-scripts/reorder_services.py dist/index.html
           python .site-scripts/domestic_map.py dist/index.html
 
+          # Publish the 7 user-approved daily route maps and insert them under each matching day card.
+          cp assets/day{2..8}_route_map.jpg dist/assets/
+          python .site-scripts/add_daily_maps.py dist/index.html
+
           test -s dist/index.html
           test -s dist/assets/qinghai-gansu-route-poster-community-v32-hd.jpg
           grep -q 'assets/qinghai-gansu-route-poster-community-v32-hd.jpg' dist/index.html
@@ -135,6 +139,12 @@ jobs:
           ! grep -q '极限挑战' dist/index.html
           ! grep -q '赶火车' dist/index.html
 
+          for i in {2..8}; do
+            test -s "dist/assets/day${i}_route_map.jpg"
+            grep -q "data-route-map=\"day${i}\"" dist/index.html
+            grep -q "assets/day${i}_route_map.jpg" dist/index.html
+          done
+
           python - <<'PY'
           from pathlib import Path
           from PIL import Image
@@ -144,10 +154,18 @@ jobs:
           xhs = s.find('<section id="xhs">')
           if not (stay < services < xhs):
               raise SystemExit('services section order is incorrect')
+          if s.count('data-route-map=') != 7:
+              raise SystemExit(f'daily route map panel count mismatch: {s.count("data-route-map=")} != 7')
           p = Path('dist/assets/qinghai-gansu-route-poster-community-v32-hd.jpg')
           with Image.open(p) as im:
               if im.size != (1500, 2121):
                   raise SystemExit(f'final HD poster dimension check failed: {im.size}')
+          for i in range(2, 9):
+              p = Path(f'dist/assets/day{i}_route_map.jpg')
+              with Image.open(p) as im:
+                  if im.size != (1122, 1402):
+                      raise SystemExit(f'day{i} route map dimension check failed: {im.size}')
+          print('Verified 7 daily route maps at 1122x1402 and all panels inserted.')
           PY
 
       - name: Setup Pages
