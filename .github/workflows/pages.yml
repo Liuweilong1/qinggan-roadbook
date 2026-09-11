@@ -34,39 +34,56 @@ jobs:
           cp assets/qinghai-gansu-route-poster-hd-v3.svg dist/assets/qinghai-gansu-route-poster-hd-v3.svg
           python - <<'PY'
           from pathlib import Path
-          import base64
           import re
 
+          # These are the archived raw binary chunks of the HD route poster.
+          # Concatenate bytes directly; do not pass the image through Base64.
           part_files = [
-              '.site-assets/poster-v10.part01',
-              '.site-assets/poster-v10.part02',
-              '.site-assets/poster-v10.part03',
+              '.site-assets/route-poster.part01',
+              '.site-assets/route-poster.part02',
+              '.site-assets/route-poster.part03',
+              '.site-assets/route-poster.part04',
+              '.site-assets/route-poster.part05',
           ]
-          pieces = []
-          alphabet = set('ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=')
-          for i, part_file in enumerate(part_files):
-              raw = Path(part_file).read_text(encoding='utf-8', errors='ignore')
-              clean = ''.join(ch for ch in raw if ch in alphabet)
-              # The archived final chunk lost one character during an older GitHub write.
-              # Keep all complete Base64 quanta; only the damaged tail is discarded.
-              data_count = len(clean.rstrip('='))
-              if data_count % 4 == 1:
-                  clean = clean.rstrip('=')[:-1]
-              clean += '=' * ((4 - len(clean) % 4) % 4)
-              try:
-                  pieces.append(base64.b64decode(clean, validate=False))
-              except Exception as e:
-                  raise SystemExit(f'Poster base64 decode failed for {part_file}: {e}')
-          img = b''.join(pieces)
-          if not img.startswith(b'\xff\xd8\xff'):
-              raise SystemExit(f'Poster JPEG header invalid: {img[:8].hex()}')
-          if not img.endswith(b'\xff\xd9'):
-              img += b'\xff\xd9'
-          if len(img) < 25000:
-              raise SystemExit(f'Poster JPEG unexpectedly small: {len(img)} bytes')
-          asset_rel = 'assets/qinghai-gansu-route-poster-community-v26.jpg'
+          img = b''.join(Path(x).read_bytes() for x in part_files)
+          print(f'Raw poster assembled: size={len(img)} magic={img[:12].hex()} tail={img[-12:].hex()}')
+          if not (img.startswith(b'\xff\xd8\xff') and img.endswith(b'\xff\xd9')):
+              raise SystemExit('Archived route poster is not a complete JPEG')
+          if len(img) < 50000:
+              raise SystemExit(f'Archived route poster unexpectedly small: {len(img)} bytes')
+
+          # Parse the JPEG SOF marker so the build proves the browser has a real image.
+          i = 2
+          width = height = None
+          while i + 9 < len(img):
+              if img[i] != 0xFF:
+                  i += 1
+                  continue
+              while i < len(img) and img[i] == 0xFF:
+                  i += 1
+              if i >= len(img):
+                  break
+              marker = img[i]
+              i += 1
+              if marker in (0xD8, 0xD9) or 0xD0 <= marker <= 0xD7:
+                  continue
+              if i + 2 > len(img):
+                  break
+              seglen = int.from_bytes(img[i:i+2], 'big')
+              if marker in (0xC0, 0xC1, 0xC2, 0xC3, 0xC5, 0xC6, 0xC7, 0xC9, 0xCA, 0xCB, 0xCD, 0xCE, 0xCF):
+                  if i + 7 <= len(img):
+                      height = int.from_bytes(img[i+3:i+5], 'big')
+                      width = int.from_bytes(img[i+5:i+7], 'big')
+                  break
+              if seglen < 2:
+                  break
+              i += seglen
+          if not width or not height:
+              raise SystemExit('Could not read JPEG dimensions from archived poster')
+          print(f'Poster JPEG dimensions: {width}x{height}')
+
+          asset_rel = 'assets/qinghai-gansu-route-poster-community-v27.jpg'
           (Path('dist') / asset_rel).write_bytes(img)
-          print(f'Poster JPEG ready: {len(img)} bytes; magic={img[:8].hex()} tail={img[-8:].hex()}')
 
           p = Path('dist/index.html')
           s = p.read_text(encoding='utf-8')
@@ -108,8 +125,8 @@ jobs:
           python .site-scripts/reorder_services.py dist/index.html
           python .site-scripts/domestic_map.py dist/index.html
           test -s dist/index.html
-          test -s dist/assets/qinghai-gansu-route-poster-community-v26.jpg
-          grep -q 'assets/qinghai-gansu-route-poster-community-v26.jpg' dist/index.html
+          test -s dist/assets/qinghai-gansu-route-poster-community-v27.jpg
+          grep -q 'assets/qinghai-gansu-route-poster-community-v27.jpg' dist/index.html
           grep -q '路线海报版总览' dist/index.html
           grep -q '神州租车 BJ30' dist/index.html
           grep -q '沿途加油 · 卫生间 · 休息点' dist/index.html
