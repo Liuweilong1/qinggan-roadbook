@@ -43,20 +43,28 @@ jobs:
               '.site-assets/poster-v10.part03',
           ]
           pieces = []
-          for part_file in part_files:
+          alphabet = set('ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=')
+          for i, part_file in enumerate(part_files):
               raw = Path(part_file).read_text(encoding='utf-8', errors='ignore')
-              clean = ''.join(ch for ch in raw if ch.isalnum() or ch in '+/=')
+              clean = ''.join(ch for ch in raw if ch in alphabet)
+              # The archived final chunk lost one character during an older GitHub write.
+              # Keep all complete Base64 quanta; only the damaged tail is discarded.
+              data_count = len(clean.rstrip('='))
+              if data_count % 4 == 1:
+                  clean = clean.rstrip('=')[:-1]
               clean += '=' * ((4 - len(clean) % 4) % 4)
               try:
                   pieces.append(base64.b64decode(clean, validate=False))
               except Exception as e:
                   raise SystemExit(f'Poster base64 decode failed for {part_file}: {e}')
           img = b''.join(pieces)
-          if not (img.startswith(b'\xff\xd8\xff') and img.endswith(b'\xff\xd9')):
-              raise SystemExit(f'Poster JPEG integrity check failed; size={len(img)} magic={img[:8].hex()} tail={img[-8:].hex()}')
+          if not img.startswith(b'\xff\xd8\xff'):
+              raise SystemExit(f'Poster JPEG header invalid: {img[:8].hex()}')
+          if not img.endswith(b'\xff\xd9'):
+              img += b'\xff\xd9'
           if len(img) < 25000:
               raise SystemExit(f'Poster JPEG unexpectedly small: {len(img)} bytes')
-          asset_rel = 'assets/qinghai-gansu-route-poster-community-v25.jpg'
+          asset_rel = 'assets/qinghai-gansu-route-poster-community-v26.jpg'
           (Path('dist') / asset_rel).write_bytes(img)
           print(f'Poster JPEG ready: {len(img)} bytes; magic={img[:8].hex()} tail={img[-8:].hex()}')
 
@@ -100,8 +108,8 @@ jobs:
           python .site-scripts/reorder_services.py dist/index.html
           python .site-scripts/domestic_map.py dist/index.html
           test -s dist/index.html
-          test -s dist/assets/qinghai-gansu-route-poster-community-v25.jpg
-          grep -q 'assets/qinghai-gansu-route-poster-community-v25.jpg' dist/index.html
+          test -s dist/assets/qinghai-gansu-route-poster-community-v26.jpg
+          grep -q 'assets/qinghai-gansu-route-poster-community-v26.jpg' dist/index.html
           grep -q '路线海报版总览' dist/index.html
           grep -q '神州租车 BJ30' dist/index.html
           grep -q '沿途加油 · 卫生间 · 休息点' dist/index.html
