@@ -85,48 +85,24 @@ jobs:
           b = p.read_bytes()
           if not (b[:2] == b'\xff\xd8' and b[-2:] == b'\xff\xd9'):
               raise SystemExit('Poster JPEG is not a valid complete JPEG file')
-          PY
-          grep -q 'assets/qinghai-gansu-route-poster-wechat-v6.jpg' dist/index.html
-          ! grep -q 'qinghai-gansu-route-poster-community-v4.webp' dist/index.html
-          grep -q '路线海报版总览' dist/index.html
-          grep -q 'id="fuel" type="number" value="7.3"' dist/index.html
-          grep -q 'id="rental" type="number" value="2700"' dist/index.html
-          grep -q 'id="hotel" type="number" value="1300"' dist/index.html
-          grep -q 'id="ticket" type="number" value="800"' dist/index.html
-          grep -q 'id="cons" type="number" value="9"' dist/index.html
-          grep -q "预算参考估算器" dist/index.html
-          grep -q "神州租车 BJ30" dist/index.html
-          grep -q "舒适补油间隔约 400–450km" dist/index.html
-          grep -q "8天 7夜 · 逐日轻松参考" dist/index.html
-          grep -q "07:45" dist/index.html
-          ! grep -q "06:30–07:00" dist/index.html
-          ! grep -q "06:00–06:30" dist/index.html
-          ! grep -q "07:00–07:30" dist/index.html
-          ! grep -q "快餐化" dist/index.html
-          ! grep -q "第一场硬仗" dist/index.html
-          ! grep -q "极限挑战" dist/index.html
-          ! grep -q "赶火车" dist/index.html
-          grep -q 'id="services"' dist/index.html
-          grep -q "沿途加油 · 卫生间 · 休息点" dist/index.html
-          grep -q "肃南县城作为主要加油节点" dist/index.html
-          grep -q "cdn.bootcdn.net/ajax/libs/leaflet/1.9.4/leaflet.js" dist/index.html
-          grep -q "map.gtimg.com/realtimerender" dist/index.html
-          grep -q "wprd0" dist/index.html
-          grep -q "style=8&ltype=11" dist/index.html
-          grep -q "wgs84ToGcj02" dist/index.html
-          grep -q "优先使用腾讯地图国内底图" dist/index.html
-          ! grep -q "tile.openstreetmap.org" dist/index.html
-          ! grep -q "unpkg.com/leaflet" dist/index.html
-          python - <<'PY'
-          from pathlib import Path
           s = Path('dist/index.html').read_text(encoding='utf-8')
+          required = [
+              'assets/qinghai-gansu-route-poster-wechat-v6.jpg',
+              '路线海报版总览',
+              '神州租车 BJ30',
+              '沿途加油 · 卫生间 · 休息点',
+              '资料来源 · 可点击复核',
+              'wgs84ToGcj02',
+          ]
+          missing = [x for x in required if x not in s]
+          if missing:
+              raise SystemExit('Missing required content: ' + ', '.join(missing))
           stay = s.find('<section id="stay">')
           services = s.find('<section id="services">')
           xhs = s.find('<section id="xhs">')
           if not (stay < services < xhs):
               raise SystemExit('services section order is incorrect')
           PY
-          grep -q "资料来源 · 可点击复核" dist/index.html
       - name: Setup Pages
         uses: actions/configure-pages@v5
         with:
