@@ -32,7 +32,32 @@ jobs:
               .site-parts/part-04.txt \
               .site-parts/part-05.txt > dist/index.html
           cp assets/qinghai-gansu-route-poster-hd-v3.svg dist/assets/qinghai-gansu-route-poster-hd-v3.svg
-          base64 -d .site-assets/poster-v29.b64 > dist/assets/qinghai-gansu-route-poster-community-v29.jpg
+          cat .site-assets/poster-v29.part01 \
+              .site-assets/poster-v29.part02 \
+              .site-assets/poster-v29.part03 \
+              .site-assets/poster-v29.part04 \
+              .site-assets/poster-v29.part05 \
+              .site-assets/poster-v29.part06 \
+              .site-assets/poster-v29.part07 \
+              .site-assets/poster-v29.part08 \
+              .site-assets/poster-v29.part09 \
+              .site-assets/poster-v29.part10 \
+              .site-assets/poster-v29.part11 \
+              .site-assets/poster-v29.part12 \
+              .site-assets/poster-v29.part13 \
+              .site-assets/poster-v29.part14 \
+              .site-assets/poster-v29.part15 \
+              .site-assets/poster-v29.part16 \
+              .site-assets/poster-v29.part17 \
+              .site-assets/poster-v29.part18 \
+              .site-assets/poster-v29.part19 \
+              .site-assets/poster-v29.part20 \
+              .site-assets/poster-v29.part21 \
+              .site-assets/poster-v29.part22 \
+              .site-assets/poster-v29.part23 \
+              .site-assets/poster-v29.part24 \
+              .site-assets/poster-v29.part25 \
+              > dist/assets/qinghai-gansu-route-poster-community-v29.jpg
           python - <<'PY'
           from pathlib import Path
           import hashlib
@@ -50,7 +75,35 @@ jobs:
               raise SystemExit(f'Poster SHA256 mismatch: {actual_sha256} != {expected_sha256}')
           if not (img.startswith(b'\xff\xd8\xff') and img.endswith(b'\xff\xd9')):
               raise SystemExit('Poster JPEG header/tail invalid')
-          print(f'Poster verified byte-for-byte: {len(img)} bytes sha256={actual_sha256}')
+
+          i = 2
+          width = height = None
+          while i + 9 < len(img):
+              if img[i] != 0xFF:
+                  i += 1
+                  continue
+              while i < len(img) and img[i] == 0xFF:
+                  i += 1
+              if i >= len(img):
+                  break
+              marker_code = img[i]
+              i += 1
+              if marker_code in (0xD8, 0xD9) or 0xD0 <= marker_code <= 0xD7:
+                  continue
+              if i + 2 > len(img):
+                  break
+              seglen = int.from_bytes(img[i:i+2], 'big')
+              if marker_code in (0xC0,0xC1,0xC2,0xC3,0xC5,0xC6,0xC7,0xC9,0xCA,0xCB,0xCD,0xCE,0xCF):
+                  if i + 7 <= len(img):
+                      height = int.from_bytes(img[i+3:i+5], 'big')
+                      width = int.from_bytes(img[i+5:i+7], 'big')
+                  break
+              if seglen < 2:
+                  break
+              i += seglen
+          if (width, height) != (500, 707):
+              raise SystemExit(f'Poster dimensions mismatch: {width}x{height}')
+          print(f'Poster verified byte-for-byte: {len(img)} bytes {width}x{height} sha256={actual_sha256}')
 
           p = Path('dist/index.html')
           s = p.read_text(encoding='utf-8')
@@ -95,18 +148,33 @@ jobs:
           test -s dist/assets/qinghai-gansu-route-poster-community-v29.jpg
           grep -q 'assets/qinghai-gansu-route-poster-community-v29.jpg' dist/index.html
           grep -q '路线海报版总览' dist/index.html
+          grep -q 'id="fuel" type="number" value="7.3"' dist/index.html
+          grep -q 'id="rental" type="number" value="2700"' dist/index.html
+          grep -q 'id="hotel" type="number" value="1300"' dist/index.html
+          grep -q 'id="ticket" type="number" value="800"' dist/index.html
+          grep -q 'id="cons" type="number" value="9"' dist/index.html
           grep -q '神州租车 BJ30' dist/index.html
+          grep -q '舒适补油间隔约 400–450km' dist/index.html
           grep -q '沿途加油 · 卫生间 · 休息点' dist/index.html
+          grep -q '肃南县城作为主要加油节点' dist/index.html
           grep -q 'wgs84ToGcj02' dist/index.html
           grep -q '资料来源 · 可点击复核' dist/index.html
+          ! grep -q '快餐化' dist/index.html
+          ! grep -q '第一场硬仗' dist/index.html
+          ! grep -q '极限挑战' dist/index.html
+          ! grep -q '赶火车' dist/index.html
           python - <<'PY'
           from pathlib import Path
+          import hashlib
           s = Path('dist/index.html').read_text(encoding='utf-8')
           stay = s.find('<section id="stay">')
           services = s.find('<section id="services">')
           xhs = s.find('<section id="xhs">')
           if not (stay < services < xhs):
               raise SystemExit('services section order is incorrect')
+          p = Path('dist/assets/qinghai-gansu-route-poster-community-v29.jpg')
+          if hashlib.sha256(p.read_bytes()).hexdigest() != 'b77c833cdec66ba6e4578fd6a750215e9d0b381dcec5b57a2526fc2c1c1d3792':
+              raise SystemExit('final poster hash check failed')
           PY
       - name: Setup Pages
         uses: actions/configure-pages@v5
