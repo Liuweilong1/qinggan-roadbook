@@ -32,16 +32,24 @@ jobs:
               .site-parts/part-04.txt \
               .site-parts/part-05.txt > dist/index.html
           cp assets/qinghai-gansu-route-poster-hd-v3.svg dist/assets/qinghai-gansu-route-poster-hd-v3.svg
-          tr -d '\r\n\t ' < .site-assets/poster-v10.part01 | base64 -d > dist/assets/qinghai-gansu-route-poster-community-v10.jpg
           python - <<'PY'
           from pathlib import Path
+          import base64
           import re
 
-          img = Path('dist/assets/qinghai-gansu-route-poster-community-v10.jpg').read_bytes()
+          raw = Path('.site-assets/poster-v10.part01').read_text(encoding='utf-8', errors='ignore')
+          clean = ''.join(ch for ch in raw if ch.isalnum() or ch in '+/=')
+          clean += '=' * ((4 - len(clean) % 4) % 4)
+          try:
+              img = base64.b64decode(clean, validate=False)
+          except Exception as e:
+              raise SystemExit(f'Poster base64 decode failed: {e}')
           if not (img.startswith(b'\xff\xd8\xff') and img.endswith(b'\xff\xd9')):
-              raise SystemExit('Poster JPEG integrity check failed')
+              raise SystemExit(f'Poster JPEG integrity check failed; size={len(img)} magic={img[:8].hex()} tail={img[-8:].hex()}')
           if len(img) < 8000:
               raise SystemExit(f'Poster JPEG unexpectedly small: {len(img)} bytes')
+          asset_rel = 'assets/qinghai-gansu-route-poster-community-v10.jpg'
+          (Path('dist') / asset_rel).write_bytes(img)
           print(f'Poster JPEG ready: {len(img)} bytes; magic={img[:8].hex()}')
 
           p = Path('dist/index.html')
@@ -59,7 +67,6 @@ jobs:
               if count != 1:
                   raise SystemExit(f'Failed to update budget field: {field_id}')
 
-          asset_rel = 'assets/qinghai-gansu-route-poster-community-v10.jpg'
           poster = f'''  <div class="panel" style="margin:0 0 18px;overflow:hidden;">\n    <h3 style="margin:0 0 6px;font-size:20px;">路线海报版总览</h3>\n    <p class="section-lead" style="margin-bottom:14px;">社区旅行海报风格完整版。点击图片可在新页面查看大图，再结合下方交互地图查看具体位置。</p>\n    <a href="{asset_rel}" target="_blank" rel="noreferrer" aria-label="点击查看路线海报大图" style="display:block;cursor:zoom-in;">\n      <img src="{asset_rel}" alt="青甘大环线 9.25—10.2 路线海报总览" loading="eager" decoding="async" style="display:block;width:100%;height:auto;border-radius:18px;border:1px solid var(--line);background:#eef2df;">\n    </a>\n  </div>\n'''
           marker = '  <div id="map"></div>\n'
           if '路线海报版总览' in s:
