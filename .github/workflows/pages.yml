@@ -33,27 +33,41 @@ jobs:
               .site-parts/part-05.txt > dist/index.html
           cp assets/qinghai-gansu-route-poster-hd-v3.svg dist/assets/qinghai-gansu-route-poster-hd-v3.svg
 
-          : > dist/assets/qinghai-gansu-route-poster-community-v30.jpg
-          for f in \
-            .site-assets/poster-v29.b64 \
-            .site-assets/poster-v29.part02.b64 \
-            .site-assets/poster-v29.part03.b64 \
-            .site-assets/poster-v29.part04.b64 \
-            .site-assets/poster-v29.part05.b64 \
-            .site-assets/poster-v29.part06.b64 \
-            .site-assets/poster-v29.part07.b64
-          do
-            base64 -d "$f" >> dist/assets/qinghai-gansu-route-poster-community-v30.jpg
-          done
-
           python - <<'PY'
           from pathlib import Path
+          import base64
           import hashlib
           import re
 
-          asset_rel = 'assets/qinghai-gansu-route-poster-community-v30.jpg'
+          parts = [
+              ('.site-assets/poster-v29.b64', 10000),
+              ('.site-assets/poster-v29.part02.b64', 10000),
+              ('.site-assets/poster-v29.part03.b64', 10000),
+              ('.site-assets/poster-v29.part04.b64', 12000),
+              ('.site-assets/poster-v29.part05.b64', 12000),
+              ('.site-assets/poster-v29.part06.b64', 12000),
+              ('.site-assets/poster-v29.part07.b64', 12059),
+          ]
+          chunks = []
+          alphabet = set('ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=')
+          for path, expected_len in parts:
+              raw = Path(path).read_text(encoding='utf-8')
+              clean = ''.join(ch for ch in raw if ch in alphabet)
+              clean += '=' * ((4 - len(clean) % 4) % 4)
+              try:
+                  chunk = base64.b64decode(clean, validate=False)
+              except Exception as e:
+                  raise SystemExit(f'Base64 decode failed for {path}: {e}; chars={len(clean)}')
+              print(f'{path}: encoded={len(clean)} decoded={len(chunk)}')
+              if len(chunk) != expected_len:
+                  raise SystemExit(f'Chunk length mismatch for {path}: {len(chunk)} != {expected_len}')
+              chunks.append(chunk)
+
+          img = b''.join(chunks)
+          asset_rel = 'assets/qinghai-gansu-route-poster-community-v31.jpg'
           img_path = Path('dist') / asset_rel
-          img = img_path.read_bytes()
+          img_path.write_bytes(img)
+
           expected_size = 78059
           expected_sha256 = 'b77c833cdec66ba6e4578fd6a750215e9d0b381dcec5b57a2526fc2c1c1d3792'
           actual_sha256 = hashlib.sha256(img).hexdigest()
@@ -96,12 +110,7 @@ jobs:
           p = Path('dist/index.html')
           s = p.read_text(encoding='utf-8')
 
-          defaults = {
-              'fuel': '7.3',
-              'rental': '2700',
-              'hotel': '1300',
-              'ticket': '800',
-          }
+          defaults = {'fuel':'7.3','rental':'2700','hotel':'1300','ticket':'800'}
           for field_id, value in defaults.items():
               pattern = rf'(<input id="{field_id}"[^>]*\bvalue=")[^"]*(")'
               s, count = re.subn(pattern, rf'\g<1>{value}\2', s, count=1)
@@ -113,10 +122,7 @@ jobs:
           if '路线海报版总览' in s:
               s, count = re.subn(
                   r'  <div class="panel" style="margin:0 0 18px;overflow:hidden;">\n    <h3 style="margin:0 0 6px;font-size:20px;">路线海报版总览</h3>.*?  </div>\n',
-                  poster,
-                  s,
-                  count=1,
-                  flags=re.S,
+                  poster, s, count=1, flags=re.S,
               )
               if count != 1:
                   raise SystemExit('Failed to replace route poster panel')
@@ -124,17 +130,17 @@ jobs:
               if marker not in s:
                   raise SystemExit('Map marker not found')
               s = s.replace(marker, poster + marker, 1)
-
           p.write_text(s, encoding='utf-8')
           PY
+
           python .site-scripts/relax_page.py dist/index.html dist/assets/qinghai-gansu-route-poster-hd-v3.svg
           python .site-scripts/add_services.py dist/index.html
           python .site-scripts/add_vehicle.py dist/index.html
           python .site-scripts/reorder_services.py dist/index.html
           python .site-scripts/domestic_map.py dist/index.html
           test -s dist/index.html
-          test -s dist/assets/qinghai-gansu-route-poster-community-v30.jpg
-          grep -q 'assets/qinghai-gansu-route-poster-community-v30.jpg' dist/index.html
+          test -s dist/assets/qinghai-gansu-route-poster-community-v31.jpg
+          grep -q 'assets/qinghai-gansu-route-poster-community-v31.jpg' dist/index.html
           grep -q '路线海报版总览' dist/index.html
           grep -q 'id="fuel" type="number" value="7.3"' dist/index.html
           grep -q 'id="rental" type="number" value="2700"' dist/index.html
@@ -160,7 +166,7 @@ jobs:
           xhs = s.find('<section id="xhs">')
           if not (stay < services < xhs):
               raise SystemExit('services section order is incorrect')
-          p = Path('dist/assets/qinghai-gansu-route-poster-community-v30.jpg')
+          p = Path('dist/assets/qinghai-gansu-route-poster-community-v31.jpg')
           if hashlib.sha256(p.read_bytes()).hexdigest() != 'b77c833cdec66ba6e4578fd6a750215e9d0b381dcec5b57a2526fc2c1c1d3792':
               raise SystemExit('final poster hash check failed')
           PY
