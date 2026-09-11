@@ -38,8 +38,9 @@ jobs:
           import re
 
           part_files = [
-              '.site-assets/poster-v21.part01',
-              '.site-assets/poster-v21.part02',
+              '.site-assets/poster-v10.part01',
+              '.site-assets/poster-v10.part02',
+              '.site-assets/poster-v10.part03',
           ]
           raw = ''.join(Path(x).read_text(encoding='utf-8', errors='ignore') for x in part_files)
           clean = ''.join(ch for ch in raw if ch.isalnum() or ch in '+/=')
@@ -50,9 +51,9 @@ jobs:
               raise SystemExit(f'Poster base64 decode failed: {e}')
           if not (img.startswith(b'\xff\xd8\xff') and img.endswith(b'\xff\xd9')):
               raise SystemExit(f'Poster JPEG integrity check failed; size={len(img)} magic={img[:8].hex()} tail={img[-8:].hex()}')
-          if len(img) < 15000:
+          if len(img) < 25000:
               raise SystemExit(f'Poster JPEG unexpectedly small: {len(img)} bytes')
-          asset_rel = 'assets/qinghai-gansu-route-poster-community-v21.jpg'
+          asset_rel = 'assets/qinghai-gansu-route-poster-community-v24.jpg'
           (Path('dist') / asset_rel).write_bytes(img)
           print(f'Poster JPEG ready: {len(img)} bytes; magic={img[:8].hex()} tail={img[-8:].hex()}')
 
@@ -96,8 +97,8 @@ jobs:
           python .site-scripts/reorder_services.py dist/index.html
           python .site-scripts/domestic_map.py dist/index.html
           test -s dist/index.html
-          test -s dist/assets/qinghai-gansu-route-poster-community-v21.jpg
-          grep -q 'assets/qinghai-gansu-route-poster-community-v21.jpg' dist/index.html
+          test -s dist/assets/qinghai-gansu-route-poster-community-v24.jpg
+          grep -q 'assets/qinghai-gansu-route-poster-community-v24.jpg' dist/index.html
           grep -q '路线海报版总览' dist/index.html
           grep -q '神州租车 BJ30' dist/index.html
           grep -q '沿途加油 · 卫生间 · 休息点' dist/index.html
