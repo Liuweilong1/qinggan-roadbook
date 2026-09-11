@@ -1,0 +1,124 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1700" viewBox="0 0 1200 1700">
+<defs>
+  <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#f5f6df"/><stop offset="1" stop-color="#e7f0d7"/></linearGradient>
+  <linearGradient id="lake" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#8fd5dd"/><stop offset="1" stop-color="#4fa7b9"/></linearGradient>
+  <linearGradient id="sand" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#f4d59d"/><stop offset="1" stop-color="#d9a45f"/></linearGradient>
+  <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="8" stdDeviation="10" flood-color="#294a3c" flood-opacity=".12"/></filter>
+  <style><![CDATA[
+    text{font-family:"PingFang SC","Microsoft YaHei",sans-serif;fill:#234b3b}
+    .title{font-size:58px;font-weight:900;letter-spacing:2px}
+    .sub{font-size:25px;font-weight:700}
+    .small{font-size:17px;fill:#617267}
+    .label{font-size:20px;font-weight:800}
+    .tiny{font-size:14px;fill:#66776d}
+    .day{font-size:17px;font-weight:800}
+    .route{fill:none;stroke:#2f6d55;stroke-width:12;stroke-linecap:round;stroke-linejoin:round}
+    .route2{fill:none;stroke:#f5b74b;stroke-width:4;stroke-dasharray:10 10;stroke-linecap:round}
+    .card{fill:#fffdf5;stroke:#d8dfcb;stroke-width:2}
+    .num{fill:#fff;font-size:17px;font-weight:900;text-anchor:middle;dominant-baseline:middle}
+  ]]></style>
+</defs>
+<rect width="1200" height="1700" rx="40" fill="url(#bg)"/>
+
+<!-- decorative landscape -->
+<path d="M0 420 L145 290 L260 380 L390 230 L510 360 L680 210 L830 350 L1000 245 L1200 390 L1200 560 L0 560Z" fill="#cbd9b6" opacity=".72"/>
+<path d="M0 470 L180 350 L300 455 L480 310 L620 430 L785 285 L930 420 L1080 335 L1200 440 L1200 585 L0 585Z" fill="#b8ccb1" opacity=".72"/>
+<path d="M315 303 l75 -73 63 91 -52 -28 -35 24z" fill="#f8faf0" opacity=".9"/><path d="M739 327 l47 -42 55 72 -43 -20 -28 18z" fill="#f8faf0" opacity=".85"/>
+
+<!-- header -->
+<text x="65" y="74" font-size="20" font-weight="700" fill="#5b765e">穿越山河 · 遇见更美的中国</text>
+<text x="600" y="145" class="title" text-anchor="middle">青甘大环线自驾路书</text>
+<rect x="210" y="180" width="780" height="58" rx="29" fill="#2f654f"/>
+<text x="600" y="218" class="sub" text-anchor="middle" fill="#fff">2026.9.25—10.2 · 8天7夜 · 约2900—3100km</text>
+<text x="1080" y="82" font-size="22" font-weight="800" text-anchor="end">从容自驾</text><text x="1080" y="112" font-size="19" text-anchor="end">安全优先</text>
+
+<!-- theme badges -->
+<g filter="url(#shadow)">
+ <rect class="card" x="90" y="270" width="235" height="92" rx="24"/><circle cx="128" cy="316" r="24" fill="url(#lake)"/><path d="M112 322q16-20 32 0q-16 12-32 0z" fill="#eaf8f8"/><text x="165" y="307" class="label">湖泊盐湖</text><text x="165" y="335" class="tiny">纯净自然之美</text>
+ <rect class="card" x="345" y="270" width="235" height="92" rx="24"/><circle cx="383" cy="316" r="24" fill="url(#sand)"/><path d="M366 328q18-28 36 0" fill="none" stroke="#fff4d9" stroke-width="5"/><text x="420" y="307" class="label">荒漠戈壁</text><text x="420" y="335" class="tiny">苍茫辽阔之境</text>
+ <rect class="card" x="600" y="270" width="235" height="92" rx="24"/><circle cx="638" cy="316" r="24" fill="#d98b65"/><path d="M625 327h27v-20l-13-10-14 10z" fill="#fff5ea"/><text x="675" y="307" class="label">人文石窟</text><text x="675" y="335" class="tiny">千年丝路文明</text>
+ <rect class="card" x="855" y="270" width="235" height="92" rx="24"/><circle cx="893" cy="316" r="24" fill="#77aa73"/><path d="M875 329l15-23 12 13 12-17 18 27z" fill="#eef6e5"/><text x="930" y="307" class="label">草原山景</text><text x="930" y="335" class="tiny">高原壮美风光</text>
+</g>
+
+<!-- central map panel -->
+<rect x="55" y="395" width="1090" height="805" rx="36" fill="#f9f7e8" opacity=".92" stroke="#d5dec8" stroke-width="2" filter="url(#shadow)"/>
+<text x="86" y="445" font-size="22" font-weight="800">一条环线 · 看尽大美青甘</text>
+<text x="1088" y="445" class="small" text-anchor="end">城市节点不编号 · 景点按顺序标注</text>
+
+<!-- lakes/desert/terrain -->
+<path d="M725 835q80-70 165-5q-45 90-150 75q-55-8-15-70z" fill="url(#lake)" opacity=".9"/>
+<path d="M210 520q160-90 300-25q-80 85-260 95z" fill="#edd4a5" opacity=".75"/>
+<path d="M705 515q170-70 330 5q-80 78-260 63z" fill="#e7c591" opacity=".65"/>
+<path d="M540 950q180-100 380 15q-115 92-315 65z" fill="#bfd7b5" opacity=".72"/>
+
+<!-- route -->
+<path class="route" d="M965 1065 C900 1010 850 950 835 885 C817 810 875 760 958 715 C1008 688 1010 625 935 592 C868 561 793 568 735 605 C690 634 640 620 590 575 C545 535 480 510 418 545 C365 575 338 625 330 692 C322 760 272 807 225 850 C174 897 168 970 223 1025 C282 1085 370 1100 455 1080 C545 1058 620 1085 705 1112 C805 1143 900 1130 965 1065"/>
+<path class="route2" d="M705 1112 C805 1143 900 1130 965 1065"/>
+
+<!-- city nodes -->
+<g fill="#214b3c">
+ <circle cx="965" cy="1065" r="10"/><text x="988" y="1072" class="label">西宁</text>
+ <circle cx="330" cy="692" r="9"/><text x="280" y="680" class="label">大柴旦</text>
+ <circle cx="223" cy="1025" r="9"/><text x="158" y="1050" class="label">德令哈</text>
+ <circle cx="418" cy="545" r="9"/><text x="375" y="525" class="label">敦煌</text>
+ <circle cx="958" cy="715" r="9"/><text x="980" y="720" class="label">七彩镇 / 张掖</text>
+ <circle cx="850" cy="950" r="8"/><text x="865" y="950" class="tiny">肃南</text>
+ <circle cx="885" cy="885" r="8"/><text x="900" y="888" class="tiny">祁连</text>
+ <circle cx="925" cy="825" r="8"/><text x="940" y="830" class="tiny">峨堡</text>
+</g>
+
+<!-- scenic marker helper: circles -->
+<g stroke="#fff" stroke-width="4">
+ <circle cx="870" cy="1032" r="21" fill="#c84e42"/><circle cx="710" cy="1105" r="21" fill="#c84e42"/><circle cx="470" cy="1082" r="21" fill="#c84e42"/><circle cx="335" cy="742" r="21" fill="#c84e42"/>
+ <circle cx="380" cy="588" r="21" fill="#c84e42"/><circle cx="485" cy="540" r="21" fill="#c84e42"/><circle cx="590" cy="575" r="21" fill="#c84e42"/><circle cx="735" cy="605" r="21" fill="#c84e42"/>
+ <circle cx="850" cy="590" r="21" fill="#c84e42"/><circle cx="960" cy="650" r="21" fill="#c84e42"/><circle cx="885" cy="885" r="21" fill="#c84e42"/><circle cx="950" cy="1005" r="21" fill="#c84e42"/>
+</g>
+<g class="num"><text x="870" y="1033">1</text><text x="710" y="1106">2</text><text x="470" y="1083">3</text><text x="335" y="743">4</text><text x="380" y="589">5</text><text x="485" y="541">6</text><text x="590" y="576">7</text><text x="735" y="606">8</text><text x="850" y="591">9</text><text x="960" y="651">10</text><text x="885" y="886">11</text><text x="950" y="1006">12</text></g>
+
+<!-- labels -->
+<g class="label">
+ <text x="815" y="1012">青海湖</text><text x="650" y="1160">茶卡盐湖</text><text x="395" y="1142">察尔汗盐湖</text><text x="255" y="770">翡翠湖</text>
+ <text x="290" y="615">黑独山</text><text x="455" y="495">莫高窟</text><text x="555" y="530">鸣沙山月牙泉</text><text x="705" y="555">大地之子</text>
+ <text x="820" y="545">嘉峪关</text><text x="920" y="610">七彩丹霞</text><text x="760" y="865">祁连9号公路</text><text x="965" y="995">门源</text>
+</g>
+
+<!-- scenic micro illustrations -->
+<g opacity=".95">
+ <path d="M812 980q55-50 105 0q-52 30-105 0z" fill="#6cb8c4"/><path d="M675 1075q36-24 72 0q-36 20-72 0z" fill="#8ad1d0"/>
+ <path d="M300 705l40-62 34 62z" fill="#313b37"/><path d="M349 705l31-48 33 48z" fill="#48514c"/>
+ <path d="M445 512h65v-30h-65z" fill="#bc7152"/><path d="M455 482h45l-22-24z" fill="#954d3d"/>
+ <path d="M548 560q40-50 80 0" fill="none" stroke="#dba45f" stroke-width="14"/><circle cx="588" cy="560" r="12" fill="#66b7c5"/>
+ <path d="M785 830q60-35 122 0" fill="none" stroke="#74a873" stroke-width="22"/><path d="M802 832h92" stroke="#f6d26b" stroke-width="5" stroke-dasharray="9 7"/>
+ <path d="M912 980l28-39 24 39z" fill="#a3b6a7"/><path d="M942 980l32-52 35 52z" fill="#8ea897"/>
+</g>
+
+<!-- important reminder -->
+<rect x="90" y="1228" width="1020" height="86" rx="24" fill="#fff4ed" stroke="#e1a58e" stroke-width="2"/>
+<circle cx="132" cy="1271" r="22" fill="#c84e42"/><text x="132" y="1278" font-size="25" font-weight="900" text-anchor="middle" fill="#fff">!</text>
+<text x="170" y="1262" font-size="21" font-weight="900" fill="#9e3f35">10/1 路线提醒</text>
+<text x="170" y="1293" font-size="19">G227 封闭，改走：肃南 → G213 祁连9号公路 → 祁连 → S302 → 峨堡 → 门源</text>
+
+<!-- itinerary -->
+<text x="70" y="1365" font-size="28" font-weight="900">每日行程 · 轻松参考</text>
+<text x="1120" y="1365" class="small" text-anchor="end">不赶路 · 去感受 · 去遇见</text>
+<g filter="url(#shadow)">
+ <rect class="card" x="55" y="1395" width="130" height="205" rx="20"/><rect class="card" x="195" y="1395" width="130" height="205" rx="20"/><rect class="card" x="335" y="1395" width="130" height="205" rx="20"/><rect class="card" x="475" y="1395" width="130" height="205" rx="20"/>
+ <rect class="card" x="615" y="1395" width="130" height="205" rx="20"/><rect class="card" x="755" y="1395" width="130" height="205" rx="20"/><rect class="card" x="895" y="1395" width="130" height="205" rx="20"/><rect class="card" x="1035" y="1395" width="110" height="205" rx="20"/>
+</g>
+<g text-anchor="middle">
+ <text x="120" y="1430" class="day">D0 · 9.25</text><text x="120" y="1470" class="small">西宁抵达</text><circle cx="120" cy="1530" r="34" fill="#e8c985"/><path d="M95 1545h50v-35h-50zM105 1510h30l-15-18z" fill="#ae6e50"/>
+ <text x="260" y="1430" class="day">D1 · 9.26</text><text x="260" y="1463" class="tiny">西宁 → 青海湖</text><text x="260" y="1486" class="tiny">→ 茶卡 → 德令哈</text><circle cx="260" cy="1535" r="34" fill="#82c8d4"/><path d="M228 1542q32-30 64 0" fill="#e7f7f5"/>
+ <text x="400" y="1430" class="day">D2 · 9.27</text><text x="400" y="1463" class="tiny">德令哈 → 察尔汗</text><text x="400" y="1486" class="tiny">→ 翡翠湖 → 大柴旦</text><circle cx="400" cy="1535" r="34" fill="#75c8c1"/>
+ <text x="540" y="1430" class="day">D3 · 9.28</text><text x="540" y="1463" class="tiny">大柴旦 → 黑独山</text><text x="540" y="1486" class="tiny">→ 敦煌</text><circle cx="540" cy="1535" r="34" fill="#59645c"/><path d="M510 1552l23-42 18 25 17-28 24 45z" fill="#303731"/>
+ <text x="680" y="1430" class="day">D4 · 9.29</text><text x="680" y="1463" class="tiny">莫高窟 → 鸣沙山</text><text x="680" y="1486" class="tiny">月牙泉</text><circle cx="680" cy="1535" r="34" fill="#e0ba72"/><path d="M650 1548q30-35 60 0" fill="none" stroke="#fff2d2" stroke-width="8"/>
+ <text x="820" y="1430" class="day">D5 · 9.30</text><text x="820" y="1463" class="tiny">敦煌 → 大地之子</text><text x="820" y="1486" class="tiny">→ 嘉峪关 → 丹霞</text><circle cx="820" cy="1535" r="34" fill="#cf805f"/><path d="M790 1550l18-35 16 20 14-27 25 42z" fill="#f1c477"/>
+ <text x="960" y="1430" class="day">D6 · 10.1</text><text x="960" y="1463" class="tiny">张掖 → 肃南</text><text x="960" y="1486" class="tiny">→ G213 → 门源</text><circle cx="960" cy="1535" r="34" fill="#77a978"/><path d="M932 1550h56" stroke="#fff" stroke-width="7"/><path d="M960 1508v46" stroke="#f2d068" stroke-width="4" stroke-dasharray="7 7"/>
+ <text x="1090" y="1430" class="day">D7 · 10.2</text><text x="1090" y="1463" class="tiny">门源</text><text x="1090" y="1486" class="tiny">→ 西宁</text><circle cx="1090" cy="1535" r="34" fill="#9bb79b"/><path d="M1060 1552l22-36 16 20 14-24 27 40z" fill="#eef2e4"/>
+</g>
+
+<!-- footer -->
+<line x1="70" y1="1635" x2="1130" y2="1635" stroke="#cbd6c3" stroke-width="2"/>
+<text x="80" y="1672" class="small">🚙 全程约 2900—3100km</text>
+<text x="600" y="1672" class="small" text-anchor="middle">山河辽阔 · 从容自驾</text>
+<text x="1120" y="1672" class="small" text-anchor="end">📷 收集山河 · 收藏美好</text>
+</svg>
