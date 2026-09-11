@@ -32,23 +32,13 @@ jobs:
               .site-parts/part-04.txt \
               .site-parts/part-05.txt > dist/index.html
           cp assets/qinghai-gansu-route-poster-hd-v3.svg dist/assets/qinghai-gansu-route-poster-hd-v3.svg
-          cat .site-assets/source-v28.part01 \
-              .site-assets/source-v28.part02 \
-              .site-assets/source-v28.part03 \
-              .site-assets/source-v28.part04 \
-              .site-assets/source-v28.part05 \
-              .site-assets/source-v28.part06 \
-              .site-assets/source-v28.part07 \
-              .site-assets/source-v28.part08 \
-              .site-assets/source-v28.part09 \
-              .site-assets/source-v28.part10 \
-              > dist/assets/qinghai-gansu-route-poster-community-v28.jpg
+          base64 -d .site-assets/poster-v29.b64 > dist/assets/qinghai-gansu-route-poster-community-v29.jpg
           python - <<'PY'
           from pathlib import Path
           import hashlib
           import re
 
-          asset_rel = 'assets/qinghai-gansu-route-poster-community-v28.jpg'
+          asset_rel = 'assets/qinghai-gansu-route-poster-community-v29.jpg'
           img_path = Path('dist') / asset_rel
           img = img_path.read_bytes()
           expected_size = 78059
@@ -102,8 +92,8 @@ jobs:
           python .site-scripts/reorder_services.py dist/index.html
           python .site-scripts/domestic_map.py dist/index.html
           test -s dist/index.html
-          test -s dist/assets/qinghai-gansu-route-poster-community-v28.jpg
-          grep -q 'assets/qinghai-gansu-route-poster-community-v28.jpg' dist/index.html
+          test -s dist/assets/qinghai-gansu-route-poster-community-v29.jpg
+          grep -q 'assets/qinghai-gansu-route-poster-community-v29.jpg' dist/index.html
           grep -q '路线海报版总览' dist/index.html
           grep -q '神州租车 BJ30' dist/index.html
           grep -q '沿途加油 · 卫生间 · 休息点' dist/index.html
