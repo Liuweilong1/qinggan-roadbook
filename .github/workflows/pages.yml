@@ -36,6 +36,7 @@ jobs:
               .site-parts/part-04.txt \
               .site-parts/part-05.txt > dist/index.html
           cp assets/qinghai-gansu-route-poster-hd-v3.svg dist/assets/qinghai-gansu-route-poster-hd-v3.svg
+          cp assets/90f47612-7807-48c1-a529-5ccae1620c55.png dist/assets/qinghai-gansu-route-poster-community-v33-ultra.png
 
           # These 25 chunks are the exact, previously verified 500×707 JPEG source.
           cat .site-assets/poster-v29.part{01..25} > /tmp/qinggan-poster-source.jpg
@@ -82,6 +83,21 @@ jobs:
           print(f'Poster source verified: {len(source_img)} bytes 500x707 sha256={actual_source_sha256}')
           print(f'HD poster verified: {len(hd_bytes)} bytes 1500x2121 sha256={hashlib.sha256(hd_bytes).hexdigest()}')
 
+          ultra_path = Path('dist/assets/qinghai-gansu-route-poster-community-v33-ultra.png')
+          ultra_bytes = ultra_path.read_bytes()
+          expected_ultra_size = 2621999
+          expected_ultra_sha256 = '98cb99050cbc9d5f9008f718dbe8efbbc663722d9d79800ba0c5ea4d5b8bcbe9'
+          actual_ultra_sha256 = hashlib.sha256(ultra_bytes).hexdigest()
+          if len(ultra_bytes) != expected_ultra_size:
+              raise SystemExit(f'Ultra poster size mismatch: {len(ultra_bytes)} != {expected_ultra_size}')
+          if actual_ultra_sha256 != expected_ultra_sha256:
+              raise SystemExit(f'Ultra poster SHA256 mismatch: {actual_ultra_sha256} != {expected_ultra_sha256}')
+          with Image.open(ultra_path) as ultra:
+              if ultra.size != (1055, 1491):
+                  raise SystemExit(f'Ultra poster dimensions mismatch: {ultra.size}')
+              ultra.verify()
+          print(f'Ultra poster verified: {len(ultra_bytes)} bytes 1055x1491 sha256={actual_ultra_sha256}')
+
           p = Path('dist/index.html')
           s = p.read_text(encoding='utf-8')
 
@@ -92,7 +108,8 @@ jobs:
               if count != 1:
                   raise SystemExit(f'Failed to update budget field: {field_id}')
 
-          poster = f'''  <div class="panel" style="margin:0 0 18px;overflow:hidden;">\n    <h3 style="margin:0 0 6px;font-size:20px;">路线海报版总览</h3>\n    <p class="section-lead" style="margin-bottom:14px;">社区旅行海报风格高清完整版。点击图片可在新页面查看大图，再结合下方交互地图查看具体位置。</p>\n    <a href="{asset_rel}" target="_blank" rel="noreferrer" aria-label="点击查看路线海报高清大图" style="display:block;cursor:zoom-in;">\n      <img src="{asset_rel}" alt="青甘大环线 9.25—10.2 路线海报总览" width="1500" height="2121" loading="eager" decoding="async" style="display:block;width:100%;height:auto;border-radius:18px;border:1px solid var(--line);background:#eef2df;">\n    </a>\n  </div>\n'''
+          asset_rel = 'assets/qinghai-gansu-route-poster-community-v33-ultra.png'
+          poster = f'''  <div class="panel" style="margin:0 0 18px;overflow:hidden;">\n    <h3 style="margin:0 0 6px;font-size:20px;">路线海报版总览</h3>\n    <p class="section-lead" style="margin-bottom:14px;">社区旅行海报风格超清完整版。点击图片可在新页面查看大图，再结合下方交互地图查看具体位置。</p>\n    <a href="{asset_rel}" target="_blank" rel="noreferrer" aria-label="点击查看路线海报超清大图" style="display:block;cursor:zoom-in;">\n      <img src="{asset_rel}" alt="青甘大环线 9.25—10.2 路线海报总览" width="1055" height="1491" loading="eager" decoding="async" style="display:block;width:100%;height:auto;border-radius:18px;border:1px solid var(--line);background:#eef2df;">\n    </a>\n  </div>\n'''
           marker = '  <div id="map"></div>\n'
           if '路线海报版总览' in s:
               s, count = re.subn(
@@ -120,9 +137,10 @@ jobs:
 
           test -s dist/index.html
           test -s dist/assets/qinghai-gansu-route-poster-community-v32-hd.jpg
-          grep -q 'assets/qinghai-gansu-route-poster-community-v32-hd.jpg' dist/index.html
+          test -s dist/assets/qinghai-gansu-route-poster-community-v33-ultra.png
+          grep -q 'assets/qinghai-gansu-route-poster-community-v33-ultra.png' dist/index.html
           grep -q '路线海报版总览' dist/index.html
-          grep -q '社区旅行海报风格高清完整版' dist/index.html
+          grep -q '社区旅行海报风格超清完整版' dist/index.html
           grep -q 'id="fuel" type="number" value="7.3"' dist/index.html
           grep -q 'id="rental" type="number" value="2700"' dist/index.html
           grep -q 'id="hotel" type="number" value="1300"' dist/index.html
@@ -160,12 +178,16 @@ jobs:
           with Image.open(p) as im:
               if im.size != (1500, 2121):
                   raise SystemExit(f'final HD poster dimension check failed: {im.size}')
+          p = Path('dist/assets/qinghai-gansu-route-poster-community-v33-ultra.png')
+          with Image.open(p) as im:
+              if im.size != (1055, 1491):
+                  raise SystemExit(f'final ultra poster dimension check failed: {im.size}')
           for i in range(2, 9):
               p = Path(f'dist/assets/day{i}_route_map.jpg')
               with Image.open(p) as im:
                   if im.size != (1122, 1402):
                       raise SystemExit(f'day{i} route map dimension check failed: {im.size}')
-          print('Verified 7 daily route maps at 1122x1402 and all panels inserted.')
+          print('Verified ultra route overview poster plus 7 daily route maps.')
           PY
 
       - name: Setup Pages
