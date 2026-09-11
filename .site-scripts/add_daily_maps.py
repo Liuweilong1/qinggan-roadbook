@@ -1,11 +1,40 @@
 from pathlib import Path
+import hashlib
 import sys
+
+from PIL import Image
 
 if len(sys.argv) != 2:
     raise SystemExit('usage: add_daily_maps.py <html>')
 
 p = Path(sys.argv[1])
 s = p.read_text(encoding='utf-8')
+
+# Rebuild the 10/1 daily route map from the exact user-approved PNG uploaded to assets.
+# Keep the published filename as day7_route_map.jpg so the existing workflow, checks,
+# HTML references and browser cache behavior stay stable.
+day7_source = Path('assets/ChatGPT Image 2026年9月11日 23_36_56.png')
+if not day7_source.exists():
+    raise SystemExit(f'10/1 approved route map source missing: {day7_source}')
+source_bytes = day7_source.read_bytes()
+expected_size = 2755357
+expected_sha256 = '7cc519ee01f88252328447780636757a259520e6d0df290038614ffecb199554'
+actual_sha256 = hashlib.sha256(source_bytes).hexdigest()
+if len(source_bytes) != expected_size:
+    raise SystemExit(f'10/1 route map source size mismatch: {len(source_bytes)} != {expected_size}')
+if actual_sha256 != expected_sha256:
+    raise SystemExit(f'10/1 route map source SHA256 mismatch: {actual_sha256} != {expected_sha256}')
+
+day7_target = p.parent / 'assets/day7_route_map.jpg'
+day7_target.parent.mkdir(parents=True, exist_ok=True)
+with Image.open(day7_source) as im:
+    if im.size != (1122, 1402):
+        raise SystemExit(f'10/1 route map dimensions mismatch: {im.size}')
+    im.convert('RGB').save(day7_target, 'JPEG', quality=98, optimize=True, subsampling=0)
+with Image.open(day7_target) as check:
+    if check.size != (1122, 1402):
+        raise SystemExit(f'published 10/1 route map dimensions mismatch: {check.size}')
+    check.verify()
 
 style = '''
 <style id="daily-route-map-style">
@@ -85,4 +114,4 @@ for day_id, (title, asset, desc) in panels.items():
     s = s[:end] + panel + s[end:]
 
 p.write_text(s, encoding='utf-8')
-print('Daily route maps inserted: day2-day8')
+print(f'Daily route maps inserted: day2-day8; 10/1 map rebuilt from approved PNG sha256={actual_sha256}')
