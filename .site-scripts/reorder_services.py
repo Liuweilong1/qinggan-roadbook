@@ -1,4 +1,5 @@
 from pathlib import Path
+import subprocess
 import sys
 
 p = Path(sys.argv[1])
@@ -22,3 +23,8 @@ if pos < 0:
 
 s = s[:pos] + block + '\n\n' + s[pos:]
 p.write_text(s, encoding='utf-8')
+
+# Keep the production source parts untouched; enrich the final tickets section
+# after section ordering has been normalized.
+script = Path(__file__).with_name('enhance_tickets.py')
+subprocess.run([sys.executable, str(script), sys.argv[1]], check=True)
