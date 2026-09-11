@@ -37,41 +37,17 @@ jobs:
               .site-parts/part-05.txt > dist/index.html
           cp assets/qinghai-gansu-route-poster-hd-v3.svg dist/assets/qinghai-gansu-route-poster-hd-v3.svg
 
+          # These 25 chunks are the exact, previously verified 500×707 JPEG source.
+          cat .site-assets/poster-v29.part{01..25} > /tmp/qinggan-poster-source.jpg
+
           python - <<'PY'
           from pathlib import Path
-          from io import BytesIO
-          import base64
           import hashlib
           import re
           from PIL import Image, ImageFilter
 
-          # Rebuild the already verified 500×707 poster source byte-for-byte.
-          # The HD file is generated only after this source passes its exact hash check,
-          # so the poster content/layout is unchanged; only display resolution is improved.
-          parts = [
-              ('.site-assets/poster-v29.b64', 10000),
-              ('.site-assets/poster-v29.part02.b64', 10000),
-              ('.site-assets/poster-v29.part03.b64', 10000),
-              ('.site-assets/poster-v29.part04.b64', 12000),
-              ('.site-assets/poster-v29.part05.b64', 12000),
-              ('.site-assets/poster-v29.part06.b64', 12000),
-              ('.site-assets/poster-v29.part07.b64', 12059),
-          ]
-          chunks = []
-          alphabet = set('ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=')
-          for path, expected_len in parts:
-              raw = Path(path).read_text(encoding='utf-8')
-              clean = ''.join(ch for ch in raw if ch in alphabet)
-              clean += '=' * ((4 - len(clean) % 4) % 4)
-              try:
-                  chunk = base64.b64decode(clean, validate=False)
-              except Exception as e:
-                  raise SystemExit(f'Base64 decode failed for {path}: {e}; chars={len(clean)}')
-              if len(chunk) != expected_len:
-                  raise SystemExit(f'Chunk length mismatch for {path}: {len(chunk)} != {expected_len}')
-              chunks.append(chunk)
-
-          source_img = b''.join(chunks)
+          source_path = Path('/tmp/qinggan-poster-source.jpg')
+          source_img = source_path.read_bytes()
           expected_source_size = 78059
           expected_source_sha256 = 'b77c833cdec66ba6e4578fd6a750215e9d0b381dcec5b57a2526fc2c1c1d3792'
           actual_source_sha256 = hashlib.sha256(source_img).hexdigest()
@@ -82,11 +58,12 @@ jobs:
           if not (source_img.startswith(b'\xff\xd8\xff') and source_img.endswith(b'\xff\xd9')):
               raise SystemExit('Poster source JPEG header/tail invalid')
 
-          src = Image.open(BytesIO(source_img)).convert('RGB')
-          if src.size != (500, 707):
-              raise SystemExit(f'Poster source dimensions mismatch: {src.size}')
+          with Image.open(source_path) as im:
+              if im.size != (500, 707):
+                  raise SystemExit(f'Poster source dimensions mismatch: {im.size}')
+              src = im.convert('RGB')
 
-          # 3× high-quality upscale + restrained sharpening for phone/desktop high-DPI screens.
+          # 3× Lanczos upscale plus restrained sharpening. No content/layout is regenerated.
           hd = src.resize((1500, 2121), Image.Resampling.LANCZOS)
           hd = hd.filter(ImageFilter.UnsharpMask(radius=1.1, percent=115, threshold=2))
           asset_rel = 'assets/qinghai-gansu-route-poster-community-v32-hd.jpg'
