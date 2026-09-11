@@ -135,6 +135,10 @@ jobs:
           cp assets/day{2..8}_route_map.jpg dist/assets/
           python .site-scripts/add_daily_maps.py dist/index.html
 
+          # Promote Gangshika Snow Peak to the visible 10/1 travel stop while
+          # retaining Ebao only where it is needed as the S302 -> G0611 traffic node.
+          python .site-scripts/add_gangshika.py dist/index.html
+
           test -s dist/index.html
           test -s dist/assets/qinghai-gansu-route-poster-community-v32-hd.jpg
           test -s dist/assets/qinghai-gansu-route-poster-community-v33-ultra.png
@@ -152,6 +156,10 @@ jobs:
           grep -q '肃南县城作为主要加油节点' dist/index.html
           grep -q 'wgs84ToGcj02' dist/index.html
           grep -q '资料来源 · 可点击复核' dist/index.html
+          grep -q '七彩镇 → 肃南 → G213“9号公路” → 祁连 → 岗什卡雪峰 → 门源' dist/index.html
+          grep -q '经峨堡收费站上G0611' dist/index.html
+          grep -q '"name": "岗什卡雪峰"' dist/index.html
+          ! grep -q '"name": "峨堡镇"' dist/index.html
           ! grep -q '快餐化' dist/index.html
           ! grep -q '第一场硬仗' dist/index.html
           ! grep -q '极限挑战' dist/index.html
@@ -174,6 +182,12 @@ jobs:
               raise SystemExit('services section order is incorrect')
           if s.count('data-route-map=') != 7:
               raise SystemExit(f'daily route map panel count mismatch: {s.count("data-route-map=")} != 7')
+          if '七彩镇 → 肃南 → G213“9号公路” → 祁连 → 岗什卡雪峰 → 门源' not in s:
+              raise SystemExit('Gangshika day7 route missing')
+          if '"name": "岗什卡雪峰"' not in s or '"name": "峨堡镇"' in s:
+              raise SystemExit('Gangshika interactive map point check failed')
+          if '经峨堡收费站上G0611' not in s:
+              raise SystemExit('Ebao traffic-node note missing')
           p = Path('dist/assets/qinghai-gansu-route-poster-community-v32-hd.jpg')
           with Image.open(p) as im:
               if im.size != (1500, 2121):
@@ -187,7 +201,7 @@ jobs:
               with Image.open(p) as im:
                   if im.size != (1122, 1402):
                       raise SystemExit(f'day{i} route map dimension check failed: {im.size}')
-          print('Verified ultra route overview poster plus 7 daily route maps.')
+          print('Verified ultra route overview poster, Gangshika route upgrade, and 7 daily route maps.')
           PY
 
       - name: Setup Pages
