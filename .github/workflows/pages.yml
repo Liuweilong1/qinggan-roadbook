@@ -32,38 +32,26 @@ jobs:
               .site-parts/part-04.txt \
               .site-parts/part-05.txt > dist/index.html
           cp assets/qinghai-gansu-route-poster-hd-v3.svg dist/assets/qinghai-gansu-route-poster-hd-v3.svg
-          cat .site-assets/poster-v29.part01 \
-              .site-assets/poster-v29.part02 \
-              .site-assets/poster-v29.part03 \
-              .site-assets/poster-v29.part04 \
-              .site-assets/poster-v29.part05 \
-              .site-assets/poster-v29.part06 \
-              .site-assets/poster-v29.part07 \
-              .site-assets/poster-v29.part08 \
-              .site-assets/poster-v29.part09 \
-              .site-assets/poster-v29.part10 \
-              .site-assets/poster-v29.part11 \
-              .site-assets/poster-v29.part12 \
-              .site-assets/poster-v29.part13 \
-              .site-assets/poster-v29.part14 \
-              .site-assets/poster-v29.part15 \
-              .site-assets/poster-v29.part16 \
-              .site-assets/poster-v29.part17 \
-              .site-assets/poster-v29.part18 \
-              .site-assets/poster-v29.part19 \
-              .site-assets/poster-v29.part20 \
-              .site-assets/poster-v29.part21 \
-              .site-assets/poster-v29.part22 \
-              .site-assets/poster-v29.part23 \
-              .site-assets/poster-v29.part24 \
-              .site-assets/poster-v29.part25 \
-              > dist/assets/qinghai-gansu-route-poster-community-v29.jpg
+
+          : > dist/assets/qinghai-gansu-route-poster-community-v30.jpg
+          for f in \
+            .site-assets/poster-v29.b64 \
+            .site-assets/poster-v29.part02.b64 \
+            .site-assets/poster-v29.part03.b64 \
+            .site-assets/poster-v29.part04.b64 \
+            .site-assets/poster-v29.part05.b64 \
+            .site-assets/poster-v29.part06.b64 \
+            .site-assets/poster-v29.part07.b64
+          do
+            base64 -d "$f" >> dist/assets/qinghai-gansu-route-poster-community-v30.jpg
+          done
+
           python - <<'PY'
           from pathlib import Path
           import hashlib
           import re
 
-          asset_rel = 'assets/qinghai-gansu-route-poster-community-v29.jpg'
+          asset_rel = 'assets/qinghai-gansu-route-poster-community-v30.jpg'
           img_path = Path('dist') / asset_rel
           img = img_path.read_bytes()
           expected_size = 78059
@@ -145,8 +133,8 @@ jobs:
           python .site-scripts/reorder_services.py dist/index.html
           python .site-scripts/domestic_map.py dist/index.html
           test -s dist/index.html
-          test -s dist/assets/qinghai-gansu-route-poster-community-v29.jpg
-          grep -q 'assets/qinghai-gansu-route-poster-community-v29.jpg' dist/index.html
+          test -s dist/assets/qinghai-gansu-route-poster-community-v30.jpg
+          grep -q 'assets/qinghai-gansu-route-poster-community-v30.jpg' dist/index.html
           grep -q '路线海报版总览' dist/index.html
           grep -q 'id="fuel" type="number" value="7.3"' dist/index.html
           grep -q 'id="rental" type="number" value="2700"' dist/index.html
@@ -172,7 +160,7 @@ jobs:
           xhs = s.find('<section id="xhs">')
           if not (stay < services < xhs):
               raise SystemExit('services section order is incorrect')
-          p = Path('dist/assets/qinghai-gansu-route-poster-community-v29.jpg')
+          p = Path('dist/assets/qinghai-gansu-route-poster-community-v30.jpg')
           if hashlib.sha256(p.read_bytes()).hexdigest() != 'b77c833cdec66ba6e4578fd6a750215e9d0b381dcec5b57a2526fc2c1c1d3792':
               raise SystemExit('final poster hash check failed')
           PY
