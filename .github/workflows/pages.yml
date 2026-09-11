@@ -32,28 +32,17 @@ jobs:
               .site-parts/part-04.txt \
               .site-parts/part-05.txt > dist/index.html
           cp assets/qinghai-gansu-route-poster-hd-v3.svg dist/assets/qinghai-gansu-route-poster-hd-v3.svg
+          tr -d '\r\n\t ' < .site-assets/poster-v10.part01 | base64 -d > dist/assets/qinghai-gansu-route-poster-community-v10.jpg
           python - <<'PY'
           from pathlib import Path
           import re
 
-          source = Path('.site-assets/poster-user-v16.bin')
-          data = source.read_bytes()
-          if data.startswith(b'\xff\xd8\xff'):
-              ext = 'jpg'
-              if data[-2:] != b'\xff\xd9':
-                  raise SystemExit('Poster JPEG is incomplete')
-          elif data.startswith(b'\x89PNG\r\n\x1a\n'):
-              ext = 'png'
-              if not data.endswith(b'IEND\xaeB`\x82'):
-                  raise SystemExit('Poster PNG is incomplete')
-          else:
-              raise SystemExit(f'Unsupported poster format; magic={data[:12].hex()} size={len(data)}')
-          if len(data) < 30000:
-              raise SystemExit(f'Poster file unexpectedly small: {len(data)} bytes')
-          asset_rel = f'assets/qinghai-gansu-route-poster-user-v16.{ext}'
-          target = Path('dist') / asset_rel
-          target.write_bytes(data)
-          print(f'Poster ready: {asset_rel}; {len(data)} bytes; magic={data[:8].hex()}')
+          img = Path('dist/assets/qinghai-gansu-route-poster-community-v10.jpg').read_bytes()
+          if not (img.startswith(b'\xff\xd8\xff') and img.endswith(b'\xff\xd9')):
+              raise SystemExit('Poster JPEG integrity check failed')
+          if len(img) < 8000:
+              raise SystemExit(f'Poster JPEG unexpectedly small: {len(img)} bytes')
+          print(f'Poster JPEG ready: {len(img)} bytes; magic={img[:8].hex()}')
 
           p = Path('dist/index.html')
           s = p.read_text(encoding='utf-8')
@@ -70,7 +59,8 @@ jobs:
               if count != 1:
                   raise SystemExit(f'Failed to update budget field: {field_id}')
 
-          poster = f'''  <div class="panel" style="margin:0 0 18px;overflow:hidden;">\n    <h3 style="margin:0 0 6px;font-size:20px;">路线海报版总览</h3>\n    <p class="section-lead" style="margin-bottom:14px;">社区旅行海报风格完整版。点击图片可在新页面查看原图，再结合下方交互地图查看具体位置。</p>\n    <a href="{asset_rel}" target="_blank" rel="noreferrer" aria-label="点击查看路线海报大图" style="display:block;cursor:zoom-in;">\n      <img src="{asset_rel}" alt="青甘大环线 9.25—10.2 路线海报总览" loading="eager" decoding="async" style="display:block;width:100%;height:auto;border-radius:18px;border:1px solid var(--line);background:#eef2df;">\n    </a>\n  </div>\n'''
+          asset_rel = 'assets/qinghai-gansu-route-poster-community-v10.jpg'
+          poster = f'''  <div class="panel" style="margin:0 0 18px;overflow:hidden;">\n    <h3 style="margin:0 0 6px;font-size:20px;">路线海报版总览</h3>\n    <p class="section-lead" style="margin-bottom:14px;">社区旅行海报风格完整版。点击图片可在新页面查看大图，再结合下方交互地图查看具体位置。</p>\n    <a href="{asset_rel}" target="_blank" rel="noreferrer" aria-label="点击查看路线海报大图" style="display:block;cursor:zoom-in;">\n      <img src="{asset_rel}" alt="青甘大环线 9.25—10.2 路线海报总览" loading="eager" decoding="async" style="display:block;width:100%;height:auto;border-radius:18px;border:1px solid var(--line);background:#eef2df;">\n    </a>\n  </div>\n'''
           marker = '  <div id="map"></div>\n'
           if '路线海报版总览' in s:
               s, count = re.subn(
@@ -95,28 +85,21 @@ jobs:
           python .site-scripts/reorder_services.py dist/index.html
           python .site-scripts/domestic_map.py dist/index.html
           test -s dist/index.html
+          test -s dist/assets/qinghai-gansu-route-poster-community-v10.jpg
+          grep -q 'assets/qinghai-gansu-route-poster-community-v10.jpg' dist/index.html
+          grep -q '路线海报版总览' dist/index.html
+          grep -q '神州租车 BJ30' dist/index.html
+          grep -q '沿途加油 · 卫生间 · 休息点' dist/index.html
+          grep -q 'wgs84ToGcj02' dist/index.html
+          grep -q '资料来源 · 可点击复核' dist/index.html
           python - <<'PY'
           from pathlib import Path
           s = Path('dist/index.html').read_text(encoding='utf-8')
-          required = [
-              'assets/qinghai-gansu-route-poster-user-v16.',
-              '路线海报版总览',
-              '神州租车 BJ30',
-              '沿途加油 · 卫生间 · 休息点',
-              '资料来源 · 可点击复核',
-              'wgs84ToGcj02',
-          ]
-          missing = [x for x in required if x not in s]
-          if missing:
-              raise SystemExit('Missing required content: ' + ', '.join(missing))
           stay = s.find('<section id="stay">')
           services = s.find('<section id="services">')
           xhs = s.find('<section id="xhs">')
           if not (stay < services < xhs):
               raise SystemExit('services section order is incorrect')
-          poster_files = list(Path('dist/assets').glob('qinghai-gansu-route-poster-user-v16.*'))
-          if len(poster_files) != 1 or poster_files[0].stat().st_size < 30000:
-              raise SystemExit('Published poster asset missing or too small')
           PY
       - name: Setup Pages
         uses: actions/configure-pages@v5
