@@ -23,6 +23,10 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v6
+
+      - name: Install image tools
+        run: python -m pip install --quiet pillow
+
       - name: Rebuild full roadbook
         run: |
           mkdir -p dist/assets
@@ -35,10 +39,15 @@ jobs:
 
           python - <<'PY'
           from pathlib import Path
+          from io import BytesIO
           import base64
           import hashlib
           import re
+          from PIL import Image, ImageFilter
 
+          # Rebuild the already verified 500×707 poster source byte-for-byte.
+          # The HD file is generated only after this source passes its exact hash check,
+          # so the poster content/layout is unchanged; only display resolution is improved.
           parts = [
               ('.site-assets/poster-v29.b64', 10000),
               ('.site-assets/poster-v29.part02.b64', 10000),
@@ -58,54 +67,43 @@ jobs:
                   chunk = base64.b64decode(clean, validate=False)
               except Exception as e:
                   raise SystemExit(f'Base64 decode failed for {path}: {e}; chars={len(clean)}')
-              print(f'{path}: encoded={len(clean)} decoded={len(chunk)}')
               if len(chunk) != expected_len:
                   raise SystemExit(f'Chunk length mismatch for {path}: {len(chunk)} != {expected_len}')
               chunks.append(chunk)
 
-          img = b''.join(chunks)
-          asset_rel = 'assets/qinghai-gansu-route-poster-community-v31.jpg'
+          source_img = b''.join(chunks)
+          expected_source_size = 78059
+          expected_source_sha256 = 'b77c833cdec66ba6e4578fd6a750215e9d0b381dcec5b57a2526fc2c1c1d3792'
+          actual_source_sha256 = hashlib.sha256(source_img).hexdigest()
+          if len(source_img) != expected_source_size:
+              raise SystemExit(f'Poster source size mismatch: {len(source_img)} != {expected_source_size}')
+          if actual_source_sha256 != expected_source_sha256:
+              raise SystemExit(f'Poster source SHA256 mismatch: {actual_source_sha256} != {expected_source_sha256}')
+          if not (source_img.startswith(b'\xff\xd8\xff') and source_img.endswith(b'\xff\xd9')):
+              raise SystemExit('Poster source JPEG header/tail invalid')
+
+          src = Image.open(BytesIO(source_img)).convert('RGB')
+          if src.size != (500, 707):
+              raise SystemExit(f'Poster source dimensions mismatch: {src.size}')
+
+          # 3× high-quality upscale + restrained sharpening for phone/desktop high-DPI screens.
+          hd = src.resize((1500, 2121), Image.Resampling.LANCZOS)
+          hd = hd.filter(ImageFilter.UnsharpMask(radius=1.1, percent=115, threshold=2))
+          asset_rel = 'assets/qinghai-gansu-route-poster-community-v32-hd.jpg'
           img_path = Path('dist') / asset_rel
-          img_path.write_bytes(img)
+          hd.save(img_path, 'JPEG', quality=92, optimize=True, subsampling=0)
 
-          expected_size = 78059
-          expected_sha256 = 'b77c833cdec66ba6e4578fd6a750215e9d0b381dcec5b57a2526fc2c1c1d3792'
-          actual_sha256 = hashlib.sha256(img).hexdigest()
-          if len(img) != expected_size:
-              raise SystemExit(f'Poster size mismatch: {len(img)} != {expected_size}')
-          if actual_sha256 != expected_sha256:
-              raise SystemExit(f'Poster SHA256 mismatch: {actual_sha256} != {expected_sha256}')
-          if not (img.startswith(b'\xff\xd8\xff') and img.endswith(b'\xff\xd9')):
-              raise SystemExit('Poster JPEG header/tail invalid')
-
-          i = 2
-          width = height = None
-          while i + 9 < len(img):
-              if img[i] != 0xFF:
-                  i += 1
-                  continue
-              while i < len(img) and img[i] == 0xFF:
-                  i += 1
-              if i >= len(img):
-                  break
-              marker_code = img[i]
-              i += 1
-              if marker_code in (0xD8, 0xD9) or 0xD0 <= marker_code <= 0xD7:
-                  continue
-              if i + 2 > len(img):
-                  break
-              seglen = int.from_bytes(img[i:i+2], 'big')
-              if marker_code in (0xC0,0xC1,0xC2,0xC3,0xC5,0xC6,0xC7,0xC9,0xCA,0xCB,0xCD,0xCE,0xCF):
-                  if i + 7 <= len(img):
-                      height = int.from_bytes(img[i+3:i+5], 'big')
-                      width = int.from_bytes(img[i+5:i+7], 'big')
-                  break
-              if seglen < 2:
-                  break
-              i += seglen
-          if (width, height) != (500, 707):
-              raise SystemExit(f'Poster dimensions mismatch: {width}x{height}')
-          print(f'Poster verified byte-for-byte: {len(img)} bytes {width}x{height} sha256={actual_sha256}')
+          hd_bytes = img_path.read_bytes()
+          if len(hd_bytes) < 500000:
+              raise SystemExit(f'HD poster unexpectedly small: {len(hd_bytes)} bytes')
+          if not (hd_bytes.startswith(b'\xff\xd8\xff') and hd_bytes.endswith(b'\xff\xd9')):
+              raise SystemExit('HD poster JPEG header/tail invalid')
+          with Image.open(img_path) as check:
+              if check.size != (1500, 2121):
+                  raise SystemExit(f'HD poster dimensions mismatch: {check.size}')
+              check.verify()
+          print(f'Poster source verified: {len(source_img)} bytes 500x707 sha256={actual_source_sha256}')
+          print(f'HD poster verified: {len(hd_bytes)} bytes 1500x2121 sha256={hashlib.sha256(hd_bytes).hexdigest()}')
 
           p = Path('dist/index.html')
           s = p.read_text(encoding='utf-8')
@@ -117,7 +115,7 @@ jobs:
               if count != 1:
                   raise SystemExit(f'Failed to update budget field: {field_id}')
 
-          poster = f'''  <div class="panel" style="margin:0 0 18px;overflow:hidden;">\n    <h3 style="margin:0 0 6px;font-size:20px;">路线海报版总览</h3>\n    <p class="section-lead" style="margin-bottom:14px;">社区旅行海报风格完整版。点击图片可在新页面查看大图，再结合下方交互地图查看具体位置。</p>\n    <a href="{asset_rel}" target="_blank" rel="noreferrer" aria-label="点击查看路线海报大图" style="display:block;cursor:zoom-in;">\n      <img src="{asset_rel}" alt="青甘大环线 9.25—10.2 路线海报总览" loading="eager" decoding="async" style="display:block;width:100%;height:auto;border-radius:18px;border:1px solid var(--line);background:#eef2df;">\n    </a>\n  </div>\n'''
+          poster = f'''  <div class="panel" style="margin:0 0 18px;overflow:hidden;">\n    <h3 style="margin:0 0 6px;font-size:20px;">路线海报版总览</h3>\n    <p class="section-lead" style="margin-bottom:14px;">社区旅行海报风格高清完整版。点击图片可在新页面查看大图，再结合下方交互地图查看具体位置。</p>\n    <a href="{asset_rel}" target="_blank" rel="noreferrer" aria-label="点击查看路线海报高清大图" style="display:block;cursor:zoom-in;">\n      <img src="{asset_rel}" alt="青甘大环线 9.25—10.2 路线海报总览" width="1500" height="2121" loading="eager" decoding="async" style="display:block;width:100%;height:auto;border-radius:18px;border:1px solid var(--line);background:#eef2df;">\n    </a>\n  </div>\n'''
           marker = '  <div id="map"></div>\n'
           if '路线海报版总览' in s:
               s, count = re.subn(
@@ -138,10 +136,12 @@ jobs:
           python .site-scripts/add_vehicle.py dist/index.html
           python .site-scripts/reorder_services.py dist/index.html
           python .site-scripts/domestic_map.py dist/index.html
+
           test -s dist/index.html
-          test -s dist/assets/qinghai-gansu-route-poster-community-v31.jpg
-          grep -q 'assets/qinghai-gansu-route-poster-community-v31.jpg' dist/index.html
+          test -s dist/assets/qinghai-gansu-route-poster-community-v32-hd.jpg
+          grep -q 'assets/qinghai-gansu-route-poster-community-v32-hd.jpg' dist/index.html
           grep -q '路线海报版总览' dist/index.html
+          grep -q '社区旅行海报风格高清完整版' dist/index.html
           grep -q 'id="fuel" type="number" value="7.3"' dist/index.html
           grep -q 'id="rental" type="number" value="2700"' dist/index.html
           grep -q 'id="hotel" type="number" value="1300"' dist/index.html
@@ -157,27 +157,32 @@ jobs:
           ! grep -q '第一场硬仗' dist/index.html
           ! grep -q '极限挑战' dist/index.html
           ! grep -q '赶火车' dist/index.html
+
           python - <<'PY'
           from pathlib import Path
-          import hashlib
+          from PIL import Image
           s = Path('dist/index.html').read_text(encoding='utf-8')
           stay = s.find('<section id="stay">')
           services = s.find('<section id="services">')
           xhs = s.find('<section id="xhs">')
           if not (stay < services < xhs):
               raise SystemExit('services section order is incorrect')
-          p = Path('dist/assets/qinghai-gansu-route-poster-community-v31.jpg')
-          if hashlib.sha256(p.read_bytes()).hexdigest() != 'b77c833cdec66ba6e4578fd6a750215e9d0b381dcec5b57a2526fc2c1c1d3792':
-              raise SystemExit('final poster hash check failed')
+          p = Path('dist/assets/qinghai-gansu-route-poster-community-v32-hd.jpg')
+          with Image.open(p) as im:
+              if im.size != (1500, 2121):
+                  raise SystemExit(f'final HD poster dimension check failed: {im.size}')
           PY
+
       - name: Setup Pages
         uses: actions/configure-pages@v5
         with:
           enablement: true
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v4
         with:
           path: dist
+
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
