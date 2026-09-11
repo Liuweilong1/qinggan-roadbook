@@ -62,8 +62,7 @@ replace_once(
     'day7 strategy',
 )
 
-# The daily route-map card keeps the existing uploaded image, but the copy now
-# reflects the updated travel priority and explains that Ebao is still a traffic node.
+# The daily route-map card is rebuilt from the new 10/1 image uploaded by the user.
 replace_once(
     'D6 当日路线图｜张掖 / 七彩镇 → 肃南 → G213祁连9号公路 → 祁连 → 峨堡 → 门源',
     'D6 当日路线图｜张掖 / 七彩镇 → 肃南 → G213祁连9号公路 → 祁连 → 岗什卡雪峰 → 门源',
@@ -71,7 +70,7 @@ replace_once(
 )
 replace_once(
     '重点展示 10/1 绕行路线，并标出肃南、祁连、峨堡、门源等补给和休息节点。',
-    '10/1 主景点调整为岗什卡雪峰；现有路线图里的峨堡仍按交通节点理解，经峨堡收费站上G0611后再根据天气和时间决定是否进入岗什卡雪峰。',
+    '10/1 新版路线图已将岗什卡雪峰作为正式观景点；峨堡仅保留为经S302上G0611的交通节点。',
     'day7 route-map description',
 )
 
